@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cf2pusxkyewnd"]
+
+[ext_resource type="Script" uid="uid://yivwmkfwrvfr" path="res://addons/dialogic/Modules/DefaultLayoutParts/Base_Default/default_layout_base.gd" id="1_ifsho"]
+[ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="2_7jwre"]
+[ext_resource type="PackedScene" uid="uid://bquja8jyk8kbr" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/vn_textbox_layer.tscn" id="4_l6fyt"]
+
+[node name="Custom" type="CanvasLayer" unique_id=1220738950]
+script = ExtResource("1_ifsho")
+global_bg_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
+global_font = "uid://b7rnebix6ne5e"
+global_font_size = 16
+
+[node name="FullAdvanceInputLayer" parent="." unique_id=99960539 instance=ExtResource("2_7jwre")]
+apply_overrides_on_ready = true
+
+[node name="VN_TextboxLayer" parent="." unique_id=600207196 instance=ExtResource("4_l6fyt")]
+text_size = 16
+box_panel = "uid://d07bhggm65lmi"
+box_size = Vector2(480, 128)
+box_margin_bottom = 16
+box_animation_in = 1
+box_animation_out = 1
+name_label_box_panel = "uid://bja0rw2cmgvwa"
+next_indicator_texture = "uid://cku61n64tycev"
+next_indicator_size = Vector2(16, 16)
+next_indicator_position_offset = Vector2(-16, -16)
+typing_sounds_enabled = false
+apply_overrides_on_ready = true

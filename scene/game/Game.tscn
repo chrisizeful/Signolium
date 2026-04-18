@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://cj5h2ryq1sr7n"]
+
+[ext_resource type="Script" uid="uid://bb03ixnnj2yrr" path="res://scene/game/game.gd" id="1_bugwe"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_3b7nn"]
+[ext_resource type="Shader" uid="uid://dj31hby5t3g2g" path="res://assets/shader/starfield.gdshader" id="2_iabks"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_oadgx"]
+[ext_resource type="Texture2D" uid="uid://p5m60f3ema5" path="res://assets/dawnbringer-32-1x.png" id="3_72y1k"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_oadgx"]
+[ext_resource type="PackedScene" uid="uid://o1gem07xcybh" path="res://scene/ship/Ship.tscn" id="5_oadgx"]
+[ext_resource type="PackedScene" uid="uid://cuinqkgpqthtu" path="res://scene/ship/EnemyShip.tscn" id="7_aqhsn"]
+[ext_resource type="PackedScene" uid="uid://bmwc2wlawaonr" path="res://scene/ui/starmap/Starmap.tscn" id="9_evklf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iabks"]
+shader = ExtResource("2_iabks")
+shader_parameter/palette = ExtResource("3_72y1k")
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/density = 0.9999999747
+shader_parameter/layer_parascale = 3
+shader_parameter/star_speed = Vector2(0.25, 0.1)
+shader_parameter/star_wave = Vector2(0.05, 0.01)
+shader_parameter/star_size = 3.0
+shader_parameter/star_rotate_speed = 0.2500001543749999
+shader_parameter/twinkle_effect = 0.6
+shader_parameter/twinkle_speed = 0.3
+shader_parameter/pixelate_count = 750.0
+
+[sub_resource type="Resource" id="Resource_iabks"]
+script = ExtResource("3_oadgx")
+
+[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("camera", "pcam", "map")]
+script = ExtResource("1_bugwe")
+camera = NodePath("Camera2D")
+pcam = NodePath("PhantomCamera2D")
+map = NodePath("Interface/Starmap")
+
+[node name="Starfield" type="ColorRect" parent="." unique_id=162751766]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_iabks")
+custom_minimum_size = Vector2(2000, 2000)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1000.0
+offset_top = -1000.0
+offset_right = 1000.0
+offset_bottom = 1000.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1806890310]
+top_level = true
+position = Vector2(79, -6)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=693102190]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_oadgx")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1410217180 node_paths=PackedStringArray("follow_targets")]
+top_level = true
+position = Vector2(78.5, -6)
+script = ExtResource("2_3b7nn")
+follow_mode = 3
+follow_targets = [NodePath("../Ship"), NodePath("../EnemyShip")]
+snap_to_pixel = true
+tween_resource = SubResource("Resource_iabks")
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Ship" parent="." unique_id=2264427 instance=ExtResource("5_oadgx")]
+position = Vector2(418, -12)
+drift_amount = 100.0
+drift_time = 10.0
+
+[node name="EnemyShip" parent="." unique_id=1667723798 instance=ExtResource("7_aqhsn")]
+position = Vector2(-261, 0)
+drift_amount = 100.0
+drift_time = 10.0
+
+[node name="Interface" type="CanvasLayer" parent="." unique_id=868436222]
+
+[node name="Starmap" parent="Interface" unique_id=1468163657 instance=ExtResource("9_evklf")]
+visible = false

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cuinqkgpqthtu"]
+
+[ext_resource type="Script" uid="uid://g2njs1f5a5xj" path="res://scene/ship/EnemyShip.gd" id="1_0lx2d"]
+[ext_resource type="PackedScene" uid="uid://dstpp4v0opne1" path="res://scene/ship/component/BasicComponent.tscn" id="2_p281v"]
+
+[node name="EnemyShip" type="Node2D" unique_id=1667723798]
+script = ExtResource("1_0lx2d")
+
+[node name="BasicComponent" parent="." unique_id=1230248227 instance=ExtResource("2_p281v")]
+position = Vector2(50, 0)
+
+[node name="BasicComponent2" parent="." unique_id=522427730 instance=ExtResource("2_p281v")]
+position = Vector2(-42, 0)
