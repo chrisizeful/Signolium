@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cuinqkgpqthtu" path="res://scene/ship/EnemyShip.tscn" id="7_aqhsn"]
 [ext_resource type="PackedScene" uid="uid://bgbfcu2hguy3i" path="res://scene/character/Character.tscn" id="7_evklf"]
 [ext_resource type="PackedScene" uid="uid://bmwc2wlawaonr" path="res://scene/ui/starmap/Starmap.tscn" id="9_evklf"]
+[ext_resource type="Script" uid="uid://dm8sdjiv8jxjp" path="res://script/cutscene.gd" id="10_q1djn"]
 
 [sub_resource type="Resource" id="Resource_iabks"]
 script = ExtResource("3_oadgx")
@@ -21,10 +22,13 @@ fractal_type = 0
 cellular_jitter = 0.8
 cellular_return_type = 0
 
-[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("camera", "pcam")]
+[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "camera", "pcam_ship", "pcam_player", "cutscene")]
 script = ExtResource("1_bugwe")
+player = NodePath("Ship/Player")
 camera = NodePath("Camera2D")
-pcam = NodePath("PhantomCamera2D")
+pcam_ship = NodePath("ShipCamera")
+pcam_player = NodePath("PlayerCamera")
+cutscene = NodePath("Cutscene")
 
 [node name="Starfield" parent="." unique_id=542465191 instance=ExtResource("2_72y1k")]
 
@@ -39,14 +43,29 @@ process_physics_priority = 300
 script = ExtResource("2_oadgx")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1410217180 node_paths=PackedStringArray("follow_targets")]
+[node name="ShipCamera" type="Node2D" parent="." unique_id=1410217180 node_paths=PackedStringArray("follow_targets")]
 top_level = true
 position = Vector2(78.5, -6)
 script = ExtResource("2_3b7nn")
+priority = 1
 follow_mode = 3
 follow_targets = [NodePath("../Ship"), NodePath("../EnemyShip")]
 snap_to_pixel = true
 tween_resource = SubResource("Resource_iabks")
+follow_damping = true
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="PlayerCamera" type="Node2D" parent="." unique_id=699005521 node_paths=PackedStringArray("follow_target", "follow_targets")]
+top_level = true
+position = Vector2(374, -60)
+script = ExtResource("2_3b7nn")
+follow_mode = 2
+follow_target = NodePath("../Ship/Player")
+follow_targets = [NodePath("../Ship"), NodePath("../EnemyShip")]
+snap_to_pixel = true
+tween_resource = SubResource("Resource_iabks")
+follow_damping = true
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
@@ -58,6 +77,9 @@ drift_time = 10.0
 [node name="Player" parent="Ship" unique_id=428865472 instance=ExtResource("7_evklf")]
 position = Vector2(-44, -48)
 
+[node name="Marauder" parent="Ship" unique_id=442580551 instance=ExtResource("7_evklf")]
+position = Vector2(55, -48)
+
 [node name="EnemyShip" parent="." unique_id=1667723798 instance=ExtResource("7_aqhsn")]
 position = Vector2(-261, 0)
 drift_amount = 100.0
@@ -68,3 +90,6 @@ drift_time = 10.0
 [node name="Starmap" parent="Interface" unique_id=1468163657 instance=ExtResource("9_evklf")]
 visible = false
 noise = SubResource("FastNoiseLite_q1djn")
+
+[node name="Cutscene" type="Node" parent="." unique_id=1488308772]
+script = ExtResource("10_q1djn")
