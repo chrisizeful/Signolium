@@ -28,13 +28,14 @@ fractal_type = 0
 cellular_jitter = 0.8
 cellular_return_type = 0
 
-[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "characters", "camera", "pcam_ship", "pcam_player", "starmap", "cutscene", "ship", "ship_enemy")]
+[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "characters", "camera", "pcam_ship", "pcam_player", "interface", "starmap", "cutscene", "ship", "ship_enemy")]
 script = ExtResource("1_bugwe")
 player = NodePath("Ship/Characters/Player")
 characters = NodePath("Ship/Characters")
 camera = NodePath("Camera2D")
 pcam_ship = NodePath("ShipCamera")
 pcam_player = NodePath("PlayerCamera")
+interface = NodePath("Interface")
 starmap = NodePath("Interface/Starmap")
 cutscene = NodePath("Cutscene")
 ship = NodePath("Ship")
@@ -109,6 +110,9 @@ position = Vector2(63, -5)
 [node name="Marauder3" parent="Ship/Characters" unique_id=2027457133 instance=ExtResource("7_evklf")]
 position = Vector2(-9, 31)
 
+[node name="Cutscene" type="Node" parent="." unique_id=1488308772]
+script = ExtResource("10_q1djn")
+
 [node name="Interface" type="CanvasLayer" parent="." unique_id=868436222]
 
 [node name="Starmap" parent="Interface" unique_id=1468163657 instance=ExtResource("9_evklf")]
@@ -116,6 +120,3 @@ visible = false
 noise = SubResource("FastNoiseLite_j0sn7")
 
 [node name="Crosshair" parent="Interface" unique_id=1675944540 instance=ExtResource("11_7ce1y")]
-
-[node name="Cutscene" type="Node" parent="." unique_id=1488308772]
-script = ExtResource("10_q1djn")

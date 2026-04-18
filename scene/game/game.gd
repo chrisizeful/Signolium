@@ -10,6 +10,7 @@ const TILE_SIZE = 16
 @export var pcam_ship : PhantomCamera2D
 @export var pcam_player : PhantomCamera2D
 
+@export var interface : CanvasLayer
 @export var starmap : Starmap
 @export var cutscene : Cutscene
 
@@ -27,6 +28,12 @@ func _ready():
 	Dialogic.timeline_ended.connect(_align_ships_intro)
 	Dialogic.Text.about_to_show_text.connect(_on_text_show)
 	Dialogic.timeline_ended.connect(AudioHelper.play_click)
+
+func _exit_tree():
+	Dialogic.timeline_ended.disconnect(AudioHelper.play_click)
+	if Dialogic.timeline_ended.is_connected(_align_ships_intro):
+		Dialogic.timeline_ended.disconnect(_align_ships_intro)
+	Dialogic.end_timeline(true)
 
 func _on_text_show(info : Dictionary):
 	if _text_first:
@@ -96,3 +103,8 @@ func set_enabled(node : Node, enabled : bool):
 	node.set_process(enabled)
 	node.set_physics_process(enabled)
 	node.set_process_input(enabled)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		var pause = load("res://scene/ui/pause/pause_menu.tscn").instantiate()
+		interface.add_child(pause)

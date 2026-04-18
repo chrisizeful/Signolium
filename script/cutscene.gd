@@ -18,8 +18,11 @@ func start_dialog(timeline : String) -> void:
 
 func _on_dialog_finished() -> void:
 	# Change camera
+	if not is_inside_tree():
+		return
 	var game := get_node("/root/Game") as Game
-	game.pcam_player.follow_target = game.player
+	if game:
+		game.pcam_player.follow_target = game.player
 	Dialogic.Text.speaker_updated.disconnect(_on_speaker_updated)
 
 func _on_speaker_updated(character: DialogicCharacter) -> void:

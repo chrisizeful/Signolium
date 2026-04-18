@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://drrvqqjh8p1fa" path="res://assets/character/bullet.png" id="2_ojrqj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
-size = Vector2(3, 3)
+size = Vector2(5, 5)
 
 [node name="Bullet" type="Area2D" unique_id=52544416]
 script = ExtResource("1_ref3o")
