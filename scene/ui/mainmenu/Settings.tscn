@@ -1,34 +1,82 @@
 [gd_scene format=3 uid="uid://c3fcn68xvbpt3"]
 
-[node name="Settings" type="Control" unique_id=2139606620]
+[ext_resource type="Script" uid="uid://bsnur5afa3ir3" path="res://scene/ui/mainmenu/settings.gd" id="1_mgcgr"]
+[ext_resource type="PackedScene" uid="uid://bogl20r0r4ahr" path="res://scene/game/Starfield.tscn" id="2_8f2hx"]
+
+[node name="Settings" type="Control" unique_id=2139606620 node_paths=PackedStringArray("back", "master", "sound", "music")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_mgcgr")
+back = NodePath("MarginContainer/Back")
+master = NodePath("MarginContainer/Menu/Master/HSlider")
+sound = NodePath("MarginContainer/Menu/Sound/HSlider")
+music = NodePath("MarginContainer/Menu/Music/HSlider")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1146791870]
+[node name="Starfield" parent="." unique_id=542465191 instance=ExtResource("2_8f2hx")]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 0
 
-[node name="Sound" type="HBoxContainer" parent="VBoxContainer" unique_id=1032517856]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2058222610]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="VBoxContainer" parent="MarginContainer" unique_id=1146791870]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Master" type="HBoxContainer" parent="MarginContainer/Menu" unique_id=1612779641]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Sound" unique_id=34219028]
-layout_mode = 2
-text = "Sound"
-
-[node name="HSlider" type="HSlider" parent="VBoxContainer/Sound" unique_id=1981774371]
-layout_mode = 2
-
-[node name="Music" type="HBoxContainer" parent="VBoxContainer" unique_id=868813356]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/Music" unique_id=844055701]
+[node name="Label" type="Label" parent="MarginContainer/Menu/Master" unique_id=1139767058]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "Music"
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/Music" unique_id=723664454]
+[node name="HSlider" type="HSlider" parent="MarginContainer/Menu/Master" unique_id=359734294]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="Sound" type="HBoxContainer" parent="MarginContainer/Menu" unique_id=1032517856]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Menu/Sound" unique_id=34219028]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Sound"
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/Menu/Sound" unique_id=1981774371]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="Music" type="HBoxContainer" parent="MarginContainer/Menu" unique_id=868813356]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Menu/Music" unique_id=844055701]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Music"
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/Menu/Music" unique_id=723664454]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="Back" type="Button" parent="MarginContainer" unique_id=1659075370]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Back"
