@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bgbfcu2hguy3i" path="res://scene/character/Character.tscn" id="7_evklf"]
 [ext_resource type="PackedScene" uid="uid://bmwc2wlawaonr" path="res://scene/ui/starmap/Starmap.tscn" id="9_evklf"]
 [ext_resource type="Script" uid="uid://dm8sdjiv8jxjp" path="res://script/cutscene.gd" id="10_q1djn"]
+[ext_resource type="PackedScene" uid="uid://cbfptxhdp321i" path="res://scene/crosshair/crosshair.tscn" id="11_7ce1y"]
 
 [sub_resource type="Resource" id="Resource_iabks"]
 script = ExtResource("3_oadgx")
@@ -96,3 +97,5 @@ noise = SubResource("FastNoiseLite_q1djn")
 
 [node name="Cutscene" type="Node" parent="." unique_id=1488308772]
 script = ExtResource("10_q1djn")
+
+[node name="Crosshair" parent="." unique_id=1675944540 instance=ExtResource("11_7ce1y")]
