@@ -7,10 +7,19 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_oadgx"]
 [ext_resource type="PackedScene" uid="uid://o1gem07xcybh" path="res://scene/ship/Ship.tscn" id="5_oadgx"]
 [ext_resource type="PackedScene" uid="uid://cuinqkgpqthtu" path="res://scene/ship/EnemyShip.tscn" id="7_aqhsn"]
+[ext_resource type="PackedScene" uid="uid://bgbfcu2hguy3i" path="res://scene/character/Character.tscn" id="7_evklf"]
 [ext_resource type="PackedScene" uid="uid://bmwc2wlawaonr" path="res://scene/ui/starmap/Starmap.tscn" id="9_evklf"]
 
 [sub_resource type="Resource" id="Resource_iabks"]
 script = ExtResource("3_oadgx")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_q1djn"]
+resource_local_to_scene = true
+noise_type = 2
+frequency = 0.02
+fractal_type = 0
+cellular_jitter = 0.8
+cellular_return_type = 0
 
 [node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("camera", "pcam")]
 script = ExtResource("1_bugwe")
@@ -46,6 +55,9 @@ position = Vector2(418, -12)
 drift_amount = 100.0
 drift_time = 10.0
 
+[node name="Player" parent="Ship" unique_id=428865472 instance=ExtResource("7_evklf")]
+position = Vector2(-44, -48)
+
 [node name="EnemyShip" parent="." unique_id=1667723798 instance=ExtResource("7_aqhsn")]
 position = Vector2(-261, 0)
 drift_amount = 100.0
@@ -55,3 +67,4 @@ drift_time = 10.0
 
 [node name="Starmap" parent="Interface" unique_id=1468163657 instance=ExtResource("9_evklf")]
 visible = false
+noise = SubResource("FastNoiseLite_q1djn")
