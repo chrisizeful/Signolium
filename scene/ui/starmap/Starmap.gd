@@ -93,6 +93,9 @@ func add_sector_icon(point_in_sector: Vector2, icon: Texture2D) -> TextureRect:
 func _input(event: InputEvent) -> void:
 	if animator.is_playing():
 		return
+	var game := get_node("/root/Game") as Game
+	if game.cutscene.active:
+		return
 	if event.is_action_pressed("hotkeys_map") and not animator.is_playing():
 		animator.play("out" if visible else "in")
 	if event is InputEventMouseMotion:

@@ -1,6 +1,8 @@
 extends Node
 class_name Cutscene
 
+var active := false
+
 func _ready():
 	# Setup Dialogic
 	Dialogic.dialog_ending_timeline = DialogicTimeline.new()
@@ -8,6 +10,7 @@ func _ready():
 	Dialogic.Choices.use_input_action = true
 
 func start_dialog(timeline : String) -> void:
+	active = true
 	# Change camera
 	var game := get_node("/root/Game") as Game
 	game.pcam_player.priority = 1
@@ -17,6 +20,7 @@ func start_dialog(timeline : String) -> void:
 	Dialogic.start(timeline)
 
 func _on_dialog_finished() -> void:
+	active = false
 	# Change camera
 	var game := get_node("/root/Game") as Game
 	game.pcam_player.priority = 0
