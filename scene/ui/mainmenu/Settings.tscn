@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://c3fcn68xvbpt3"]
+
+[node name="Settings" type="Control" unique_id=2139606620]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1146791870]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sound" type="HBoxContainer" parent="VBoxContainer" unique_id=1032517856]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Sound" unique_id=34219028]
+layout_mode = 2
+text = "Sound"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Sound" unique_id=1981774371]
+layout_mode = 2
+
+[node name="Music" type="HBoxContainer" parent="VBoxContainer" unique_id=868813356]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Music" unique_id=844055701]
+layout_mode = 2
+text = "Music"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Music" unique_id=723664454]
+layout_mode = 2

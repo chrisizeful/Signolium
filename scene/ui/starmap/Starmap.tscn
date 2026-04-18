@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://bmwc2wlawaonr"]
+
+[ext_resource type="Script" uid="uid://cwq3tloljljxq" path="res://scene/ui/starmap/Starmap.gd" id="1_42ud8"]
+[ext_resource type="Shader" uid="uid://e1r870vqmqj3" path="res://assets/shader/starmap.gdshader" id="2_23dkc"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_a6okm"]
+noise_type = 2
+frequency = 0.02
+fractal_type = 0
+cellular_jitter = 0.8
+cellular_return_type = 0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8r6i4"]
+shader = ExtResource("2_23dkc")
+shader_parameter/cell_border_width = 0.03
+shader_parameter/border_color = Color(0.60784316, 0.7411765, 1, 1)
+shader_parameter/highlight_color = Color(0.3, 0.5, 1, 1)
+shader_parameter/rect_size = Vector2(1, 1)
+shader_parameter/circle_scale = 0.450000021375
+shader_parameter/hovered_value = -999.0
+
+[sub_resource type="Animation" id="Animation_ym6h3"]
+resource_name = "in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sectors:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -540), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_u4fni"]
+resource_name = "out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sectors:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -540)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4fni"]
+_data = {
+&"in": SubResource("Animation_ym6h3"),
+&"out": SubResource("Animation_u4fni")
+}
+
+[node name="Starmap" type="Control" unique_id=1468163657 node_paths=PackedStringArray("sectors", "animator")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_42ud8")
+sectors = NodePath("Sectors")
+noise = SubResource("FastNoiseLite_a6okm")
+animator = NodePath("AnimationPlayer")
+
+[node name="Sectors" type="ColorRect" parent="." unique_id=1955127531]
+material = SubResource("ShaderMaterial_8r6i4")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=520242524]
+libraries/ = SubResource("AnimationLibrary_u4fni")
