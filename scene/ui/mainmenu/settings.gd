@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func _on_back_pressed():
 	var menu = get_parent() as MainMenu
-	menu.menu.visible = true
+	menu.set_show_menu(true)
 	queue_free()
 
 func _on_master_changed(value: float):

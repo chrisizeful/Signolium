@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://b4w20jfyf2oxv" path="res://scene/ui/mainmenu/main_menu.gd" id="1_xlbmv"]
 [ext_resource type="PackedScene" uid="uid://bogl20r0r4ahr" path="res://scene/game/Starfield.tscn" id="2_l5y0b"]
+[ext_resource type="Texture2D" uid="uid://uqgrcw7vkju4" path="res://assets/ui/logo.png" id="3_yg47h"]
+[ext_resource type="PackedScene" uid="uid://cbfptxhdp321i" path="res://scene/crosshair/crosshair.tscn" id="4_ycjd4"]
 
-[node name="MainMenu" type="Control" unique_id=73194643 node_paths=PackedStringArray("menu", "play", "settings", "quit")]
+[node name="MainMenu" type="Control" unique_id=73194643 node_paths=PackedStringArray("menu", "logo", "play", "settings", "quit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,10 +13,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xlbmv")
-menu = NodePath("Menu")
-play = NodePath("Menu/Play")
-settings = NodePath("Menu/Settings")
-quit = NodePath("Menu/Quit")
+menu = NodePath("MarginContainer/Menu")
+logo = NodePath("Logo")
+play = NodePath("MarginContainer/Menu/Play")
+settings = NodePath("MarginContainer/Menu/Settings")
+quit = NodePath("MarginContainer/Menu/Quit")
 
 [node name="Starfield" parent="." unique_id=542465191 instance=ExtResource("2_l5y0b")]
 layout_mode = 0
@@ -28,28 +31,40 @@ offset_bottom = 2000.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="Menu" type="VBoxContainer" parent="." unique_id=411227204]
+[node name="Logo" type="TextureRect" parent="." unique_id=1861037013]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -33.0
-offset_top = -40.0
-offset_right = 33.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("3_yg47h")
 
-[node name="Play" type="Button" parent="Menu" unique_id=2050772927]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=695141701]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 128
+
+[node name="Menu" type="VBoxContainer" parent="MarginContainer" unique_id=411227204]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Play" type="Button" parent="MarginContainer/Menu" unique_id=2050772927]
 layout_mode = 2
 text = "Play"
 
-[node name="Settings" type="Button" parent="Menu" unique_id=1289713119]
+[node name="Settings" type="Button" parent="MarginContainer/Menu" unique_id=1289713119]
 layout_mode = 2
 text = "Settings"
 
-[node name="Quit" type="Button" parent="Menu" unique_id=1127922525]
+[node name="Quit" type="Button" parent="MarginContainer/Menu" unique_id=1127922525]
 layout_mode = 2
 text = "Quit"
+
+[node name="Crosshair" parent="." unique_id=1675944540 instance=ExtResource("4_ycjd4")]
