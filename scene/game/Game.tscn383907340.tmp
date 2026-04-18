@@ -23,10 +23,9 @@ fractal_type = 0
 cellular_jitter = 0.8
 cellular_return_type = 0
 
-[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "enemy", "camera", "pcam_ship", "pcam_player", "cutscene", "ship", "ship_enemy")]
+[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "camera", "pcam_ship", "pcam_player", "cutscene", "ship", "ship_enemy")]
 script = ExtResource("1_bugwe")
 player = NodePath("Ship/Player")
-enemy = NodePath("EnemyShip/Marauder")
 camera = NodePath("Camera2D")
 pcam_ship = NodePath("ShipCamera")
 pcam_player = NodePath("PlayerCamera")

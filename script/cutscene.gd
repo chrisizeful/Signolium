@@ -35,5 +35,4 @@ func _on_speaker_updated(character: DialogicCharacter) -> void:
 	if not character.nicknames.is_empty() and not character.nicknames[0].is_empty():
 		node_name = character.nicknames[0]
 	var target := game.find_child(node_name, true, false)
-	if target:
-		game.pcam_player.follow_target = target
+	game.pcam_player.follow_target = target
