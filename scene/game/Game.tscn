@@ -95,7 +95,7 @@ drift_time = 10.0
 visible = false
 noise = SubResource("FastNoiseLite_q1djn")
 
+[node name="Crosshair" parent="Interface" unique_id=1675944540 instance=ExtResource("11_7ce1y")]
+
 [node name="Cutscene" type="Node" parent="." unique_id=1488308772]
 script = ExtResource("10_q1djn")
-
-[node name="Crosshair" parent="." unique_id=1675944540 instance=ExtResource("11_7ce1y")]
