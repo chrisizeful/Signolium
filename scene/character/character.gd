@@ -1,7 +1,7 @@
 extends CharacterBody2D
+class_name Character
 
 var speed : float = 100
-
 
 func _physics_process(delta):
 	velocity.x = 0
