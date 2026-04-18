@@ -1,0 +1,34 @@
+[gd_resource type="AudioStreamPlaylist" format=3 uid="uid://d2w17ytsjt857"]
+
+[ext_resource type="AudioStream" uid="uid://cko2g8o1avurk" path="res://assets/audio/music/00 intro_0.ogg" id="1_23fxb"]
+[ext_resource type="AudioStream" uid="uid://cpwmwv2w1808b" path="res://assets/audio/music/01 game-game_0.ogg" id="2_sgkm6"]
+[ext_resource type="AudioStream" uid="uid://cyporh3d5xdka" path="res://assets/audio/music/10 running wild.ogg" id="3_4wyfk"]
+[ext_resource type="AudioStream" uid="uid://bx75d27ba4hui" path="res://assets/audio/music/11 die vonstantine.ogg" id="4_gijda"]
+[ext_resource type="AudioStream" uid="uid://ct0ewhq3538e6" path="res://assets/audio/music/12 final battle.ogg" id="5_s6hbx"]
+[ext_resource type="AudioStream" uid="uid://cgvg511iusixl" path="res://assets/audio/music/13 the end.ogg" id="6_ojsoy"]
+[ext_resource type="AudioStream" uid="uid://ofefltpa65ok" path="res://assets/audio/music/03 ship interior.ogg" id="7_oayiy"]
+[ext_resource type="AudioStream" uid="uid://cpl8426scbvrg" path="res://assets/audio/music/04 underground cavern.ogg" id="8_p6a86"]
+[ext_resource type="AudioStream" uid="uid://dwufn2rn3vvxn" path="res://assets/audio/music/02 lava city.ogg" id="9_y1gwj"]
+[ext_resource type="AudioStream" uid="uid://dacj8oofiu4w5" path="res://assets/audio/music/05 gaseous tethanus.ogg" id="10_41yrd"]
+[ext_resource type="AudioStream" uid="uid://cpmlif3xle48q" path="res://assets/audio/music/06 pirates attack.ogg" id="11_8wx5l"]
+[ext_resource type="AudioStream" uid="uid://du5nbc3imfn1v" path="res://assets/audio/music/07 high in the mountains.ogg" id="12_gr0b5"]
+[ext_resource type="AudioStream" uid="uid://d38a3igotottr" path="res://assets/audio/music/08 endless sands.ogg" id="13_g7qrn"]
+[ext_resource type="AudioStream" uid="uid://baweh4s3aui3i" path="res://assets/audio/music/09 green forest.ogg" id="14_44f1h"]
+
+[resource]
+shuffle = true
+stream_count = 14
+stream_0 = ExtResource("1_23fxb")
+stream_1 = ExtResource("2_sgkm6")
+stream_2 = ExtResource("7_oayiy")
+stream_3 = ExtResource("8_p6a86")
+stream_4 = ExtResource("9_y1gwj")
+stream_5 = ExtResource("10_41yrd")
+stream_6 = ExtResource("11_8wx5l")
+stream_7 = ExtResource("12_gr0b5")
+stream_8 = ExtResource("13_g7qrn")
+stream_9 = ExtResource("14_44f1h")
+stream_10 = ExtResource("3_4wyfk")
+stream_11 = ExtResource("4_gijda")
+stream_12 = ExtResource("5_s6hbx")
+stream_13 = ExtResource("6_ojsoy")

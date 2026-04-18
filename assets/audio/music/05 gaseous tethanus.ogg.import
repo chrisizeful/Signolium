@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dacj8oofiu4w5"
+path="res://.godot/imported/05 gaseous tethanus.ogg-4f1d06ef019f280d12b51f114935a15d.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/05 gaseous tethanus.ogg"
+dest_files=["res://.godot/imported/05 gaseous tethanus.ogg-4f1d06ef019f280d12b51f114935a15d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
