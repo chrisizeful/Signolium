@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_oadgx"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_oadgx"]
 [ext_resource type="PackedScene" uid="uid://o1gem07xcybh" path="res://scene/ship/Ship.tscn" id="5_oadgx"]
-[ext_resource type="Script" uid="uid://dimvdouy8g0sv" path="res://addons/phantom_camera/scripts/resources/phantom_camera_noise_2d.gd" id="6_j0sn7"]
 [ext_resource type="PackedScene" uid="uid://cuinqkgpqthtu" path="res://scene/ship/EnemyShip.tscn" id="7_aqhsn"]
 [ext_resource type="PackedScene" uid="uid://bgbfcu2hguy3i" path="res://scene/character/Character.tscn" id="7_evklf"]
 [ext_resource type="PackedScene" uid="uid://bmwc2wlawaonr" path="res://scene/ui/starmap/Starmap.tscn" id="9_evklf"]
@@ -16,11 +15,7 @@
 [sub_resource type="Resource" id="Resource_iabks"]
 script = ExtResource("3_oadgx")
 
-[sub_resource type="Resource" id="Resource_j0sn7"]
-script = ExtResource("6_j0sn7")
-metadata/_custom_type_script = "uid://dimvdouy8g0sv"
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_j0sn7"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7ce1y"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.02
@@ -28,23 +23,22 @@ fractal_type = 0
 cellular_jitter = 0.8
 cellular_return_type = 0
 
-[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "characters", "camera", "pcam_ship", "pcam_player", "starmap", "cutscene", "ship", "ship_enemy")]
+[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "camera", "pcam_ship", "pcam_player", "cutscene", "ship", "ship_enemy")]
 script = ExtResource("1_bugwe")
-player = NodePath("Ship/Characters/Player")
-characters = NodePath("Ship/Characters")
+player = NodePath("Ship/Player")
 camera = NodePath("Camera2D")
 pcam_ship = NodePath("ShipCamera")
 pcam_player = NodePath("PlayerCamera")
-starmap = NodePath("Interface/Starmap")
 cutscene = NodePath("Cutscene")
 ship = NodePath("Ship")
 ship_enemy = NodePath("EnemyShip")
 
+[node name="Starfield" parent="." unique_id=542465191 instance=ExtResource("2_72y1k")]
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1806890310]
 physics_interpolation_mode = 1
 top_level = true
-position = Vector2(426, -5)
-zoom = Vector2(2.5, 2.5)
+position = Vector2(422, -14)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=693102190]
@@ -53,67 +47,54 @@ process_physics_priority = 300
 script = ExtResource("2_oadgx")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="Starfield" parent="Camera2D" unique_id=542465191 instance=ExtResource("2_72y1k")]
-z_index = -100
-offset_left = -1000.0
-offset_top = -1000.0
-offset_right = 1000.0
-offset_bottom = 1000.0
-
 [node name="ShipCamera" type="Node2D" parent="." unique_id=1410217180 node_paths=PackedStringArray("follow_targets")]
 top_level = true
 position = Vector2(78.5, -6)
 script = ExtResource("2_3b7nn")
 follow_mode = 3
 follow_targets = [NodePath("../Ship"), NodePath("../EnemyShip")]
+snap_to_pixel = true
 tween_resource = SubResource("Resource_iabks")
 tween_on_load = false
 follow_damping = true
 draw_limits = true
-noise = SubResource("Resource_j0sn7")
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="PlayerCamera" type="Node2D" parent="." unique_id=699005521 node_paths=PackedStringArray("follow_target")]
 top_level = true
-position = Vector2(426, -5)
+position = Vector2(422, -14)
 script = ExtResource("2_3b7nn")
 priority = 1
 follow_mode = 2
-follow_target = NodePath("../Ship/Characters/Player")
-zoom = Vector2(2.5, 2.5)
+follow_target = NodePath("../Ship/Player")
+snap_to_pixel = true
 tween_resource = SubResource("Resource_iabks")
 tween_on_load = false
 follow_damping = true
-dead_zone_width = 0.15
-dead_zone_height = 0.15
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="EnemyShip" parent="." unique_id=1667723798 instance=ExtResource("7_aqhsn")]
-position = Vector2(-261, 0)
-
 [node name="Ship" parent="." unique_id=2264427 instance=ExtResource("5_oadgx")]
 position = Vector2(418, -12)
+drift_amount = 100.0
+drift_time = 10.0
 
-[node name="Characters" type="Node2D" parent="Ship" unique_id=237087755]
+[node name="Player" parent="Ship" unique_id=428865472 instance=ExtResource("7_evklf")]
+position = Vector2(4, -2)
 
-[node name="Player" parent="Ship/Characters" unique_id=428865472 instance=ExtResource("7_evklf")]
-position = Vector2(8, 7)
+[node name="EnemyShip" parent="." unique_id=1667723798 instance=ExtResource("7_aqhsn")]
+position = Vector2(-261, 0)
+drift_amount = 100.0
+drift_time = 10.0
 
-[node name="Marauder1" parent="Ship/Characters" unique_id=442580551 instance=ExtResource("7_evklf")]
-position = Vector2(8, -19)
-
-[node name="Marauder2" parent="Ship/Characters" unique_id=658639927 instance=ExtResource("7_evklf")]
-position = Vector2(63, -5)
-
-[node name="Marauder3" parent="Ship/Characters" unique_id=2027457133 instance=ExtResource("7_evklf")]
-position = Vector2(-9, 31)
+[node name="Marauder" parent="EnemyShip" unique_id=442580551 instance=ExtResource("7_evklf")]
+position = Vector2(0, 1)
 
 [node name="Interface" type="CanvasLayer" parent="." unique_id=868436222]
 
 [node name="Starmap" parent="Interface" unique_id=1468163657 instance=ExtResource("9_evklf")]
 visible = false
-noise = SubResource("FastNoiseLite_j0sn7")
+noise = SubResource("FastNoiseLite_7ce1y")
 
 [node name="Crosshair" parent="Interface" unique_id=1675944540 instance=ExtResource("11_7ce1y")]
 

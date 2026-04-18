@@ -18,6 +18,7 @@ func _ready() -> void:
 	music.value_changed.connect(_on_music_changed)
 
 func _on_back_pressed():
+	AudioHelper.play_click()
 	var menu = get_parent() as MainMenu
 	menu.set_show_menu(true)
 	queue_free()

@@ -1,6 +1,8 @@
 extends Node
 class_name Cutscene
 
+var active := false
+
 func _ready():
 	# Setup Dialogic
 	Dialogic.dialog_ending_timeline = DialogicTimeline.new()
@@ -8,9 +10,7 @@ func _ready():
 	Dialogic.Choices.use_input_action = true
 
 func start_dialog(timeline : String) -> void:
-	# Change camera
-	var game := get_node("/root/Game") as Game
-	game.pcam_player.priority = 1
+	active = true
 	# Setup Dialogic
 	Dialogic.timeline_ended.connect(_on_dialog_finished, CONNECT_ONE_SHOT)
 	Dialogic.Text.speaker_updated.connect(_on_speaker_updated)
@@ -19,8 +19,6 @@ func start_dialog(timeline : String) -> void:
 func _on_dialog_finished() -> void:
 	# Change camera
 	var game := get_node("/root/Game") as Game
-	game.pcam_player.priority = 0
-	game.pcam_ship.priority = 1
 	game.pcam_player.follow_target = game.player
 	Dialogic.Text.speaker_updated.disconnect(_on_speaker_updated)
 
@@ -31,5 +29,4 @@ func _on_speaker_updated(character: DialogicCharacter) -> void:
 	if not character.nicknames.is_empty() and not character.nicknames[0].is_empty():
 		node_name = character.nicknames[0]
 	var target := game.find_child(node_name, true, false)
-	if target:
-		game.pcam_player.follow_target = target
+	game.pcam_player.follow_target = target
