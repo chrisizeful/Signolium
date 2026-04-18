@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="GamerGame"
+run/main_scene="uid://bgbfcu2hguy3i"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 
 [physics]
 
@@ -20,4 +25,5 @@ config/icon="res://icon.svg"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
