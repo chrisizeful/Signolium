@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8vj0cswcxmlw"
-path="res://.godot/imported/chimkin.png-b9c7483239562a5a2da4e4862c71cca1.ctex"
+uid="uid://cwgo30vqdo07u"
+path="res://.godot/imported/handgun.png-f0b66c4cfba7a8ff6d80a6236365b200.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/chimkin.png"
-dest_files=["res://.godot/imported/chimkin.png-b9c7483239562a5a2da4e4862c71cca1.ctex"]
+source_file="res://assets/character/handgun.png"
+dest_files=["res://.godot/imported/handgun.png-f0b66c4cfba7a8ff6d80a6236365b200.ctex"]
 
 [params]
 

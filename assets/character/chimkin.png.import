@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvdxlb8cvu07s"
-path="res://.godot/imported/Guy2.png-26a81a54624e8ccb2f79daeeaf5e209e.ctex"
+uid="uid://c8vj0cswcxmlw"
+path="res://.godot/imported/chimkin.png-dda623ecb26a6b6497b10c347943c0b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Guy2.png"
-dest_files=["res://.godot/imported/Guy2.png-26a81a54624e8ccb2f79daeeaf5e209e.ctex"]
+source_file="res://assets/character/chimkin.png"
+dest_files=["res://.godot/imported/chimkin.png-dda623ecb26a6b6497b10c347943c0b9.ctex"]
 
 [params]
 

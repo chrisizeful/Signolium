@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dpms8ufhox4sp"]
 
-[ext_resource type="Texture2D" uid="uid://cwgo30vqdo07u" path="res://Sprites/handgun.png" id="1_8ctr4"]
+[ext_resource type="Texture2D" uid="uid://cwgo30vqdo07u" path="res://assets/character/handgun.png" id="1_8ctr4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ctr4"]
 size = Vector2(5, 3)
