@@ -46,6 +46,8 @@ func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, chan
 		pcam_player.priority = 0
 		pcam_ship.priority = 1
 		pcam_player.follow_target = player
+	# Wait for camera transition
+	await get_tree().create_timer(.66).timeout
 	# Align
 	other_ship.align(player_ship)
 	# Wait for ships to connect
