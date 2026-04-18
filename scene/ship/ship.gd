@@ -3,6 +3,9 @@ class_name Ship
 
 @export var floor_layer : TileMapLayer
 @export var wall_layer : TileMapLayer
+@export var exit_layer : TileMapLayer
+@export var closed_layer : TileMapLayer
+@export var bench : MapBench
 
 @export var align_time := 1.0
 
@@ -28,3 +31,7 @@ func align(other: Ship) -> void:
 	var tween := other.create_tween()
 	tween.tween_property(other, "position", new_position, align_time) \
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+
+func set_open(open : bool):
+	closed_layer.visible = not open
+	closed_layer.collision_enabled = not open

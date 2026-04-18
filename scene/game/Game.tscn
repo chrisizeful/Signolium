@@ -40,8 +40,6 @@ cutscene = NodePath("Cutscene")
 ship = NodePath("Ship")
 ship_enemy = NodePath("EnemyShip")
 
-[node name="Starfield" parent="." unique_id=542465191 instance=ExtResource("2_72y1k")]
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1806890310]
 physics_interpolation_mode = 1
 top_level = true
@@ -54,6 +52,13 @@ process_priority = 300
 process_physics_priority = 300
 script = ExtResource("2_oadgx")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="Starfield" parent="Camera2D" unique_id=542465191 instance=ExtResource("2_72y1k")]
+z_index = -100
+offset_left = -1000.0
+offset_top = -1000.0
+offset_right = 1000.0
+offset_bottom = 1000.0
 
 [node name="ShipCamera" type="Node2D" parent="." unique_id=1410217180 node_paths=PackedStringArray("follow_targets")]
 top_level = true
@@ -84,6 +89,9 @@ dead_zone_height = 0.15
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
+[node name="EnemyShip" parent="." unique_id=1667723798 instance=ExtResource("7_aqhsn")]
+position = Vector2(-261, 0)
+
 [node name="Ship" parent="." unique_id=2264427 instance=ExtResource("5_oadgx")]
 position = Vector2(418, -12)
 
@@ -96,13 +104,10 @@ position = Vector2(8, 7)
 position = Vector2(8, -19)
 
 [node name="Marauder2" parent="Ship/Characters" unique_id=658639927 instance=ExtResource("7_evklf")]
-position = Vector2(59, -10)
+position = Vector2(63, -5)
 
 [node name="Marauder3" parent="Ship/Characters" unique_id=2027457133 instance=ExtResource("7_evklf")]
-position = Vector2(-21, 27)
-
-[node name="EnemyShip" parent="." unique_id=1667723798 instance=ExtResource("7_aqhsn")]
-position = Vector2(-261, 0)
+position = Vector2(-9, 31)
 
 [node name="Interface" type="CanvasLayer" parent="." unique_id=868436222]
 

@@ -33,6 +33,7 @@ shape = SubResource("RectangleShape2D_56l2d")
 
 [node name="InteractPanel" type="PanelContainer" parent="." unique_id=2116000070]
 visible = false
+texture_filter = 1
 offset_left = -8.0
 offset_top = -26.0
 offset_right = 8.0

@@ -7,6 +7,9 @@ uniform vec4 highlight_color : source_color = vec4(0.3, 0.5, 1.0, 1.0);
 uniform vec2 rect_size = vec2(1.0, 1.0);
 uniform float circle_scale : hint_range(0.0, 1.0) = 0.5;
 uniform float hovered_value = -999.0;
+uniform float visited_values[64]; // Up to 64 visited sectors
+uniform int visited_count = 0;
+uniform vec4 visited_color : source_color = vec4(1.0, 0.8, 0.2, 1.0);
 
 // Hash function for generating sector colors from cell value
 vec3 sector_color(float cell_value) {
@@ -40,9 +43,17 @@ void fragment() {
 		step(abs(cell_value - down), 0.0001)
 	);
 
-	// Only color the hovered cell, others are dark
+
+	// Check if cell is visited
+	bool is_visited = false;
+	for (int i = 0; i < visited_count; i++) {
+		if (abs(cell_value - visited_values[i]) < 0.0001) {
+			is_visited = true;
+			break;
+		}
+	}
 	bool is_hovered = (cell_value == hovered_value);
-	vec3 sector_fill = is_hovered ? highlight_color.rgb : vec3(0.05);
+	vec3 sector_fill = is_hovered ? highlight_color.rgb : (is_visited ? visited_color.rgb : vec3(0.05));
 
 	// Blend fill color with border
 	vec3 final_color = mix(sector_fill, border_color.rgb, edge * border_color.a);

@@ -13,9 +13,11 @@ func _ready() -> void:
 	quit.pressed.connect(get_tree().quit)
 
 func _on_play_pressed():
+	AudioHelper.play_click()
 	get_tree().change_scene_to_file("res://scene/game/Game.tscn")
 
 func _on_settings_pressed():
+	AudioHelper.play_click()
 	set_show_menu(false)
 	add_child(load("res://scene/ui/mainmenu/Settings.tscn").instantiate())
 
