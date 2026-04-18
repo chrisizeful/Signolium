@@ -13,6 +13,10 @@ func _process (delta):
 func _on_body_entered(body):
 	if body != shooter:
 		queue_free()
+		if body is Character:
+			var health = body.find_child("Health", true, false) as Health
+			if health:
+				health.value -= 1
 
 func _on_destroy_timer_timeout() -> void:
 	queue_free()

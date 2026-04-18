@@ -15,6 +15,9 @@ var last_shoot_time : float
 var move_input : Vector2
 
 func _physics_process(_delta : float):
+	if name != "Player":
+		return
+	
 	move_input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	move_input = move_input.normalized()
 
@@ -29,6 +32,9 @@ func _physics_process(_delta : float):
 	move_and_slide()
 	
 func _process(_delta : float):
+	if name != "Player":
+		return
+	
 	sprite.flip_h = get_global_mouse_position().x < global_position.x
 	gun.scale.x = -1 if sprite.flip_h else 1
 	
@@ -38,7 +44,6 @@ func _process(_delta : float):
 	
 func _shoot():
 	AudioHelper.play_shoot()
-	
 	last_shoot_time = Time.get_unix_time_from_system()
 	
 	var scene : PackedScene = preload("res://scene/gun/bullet.tscn")

@@ -93,12 +93,15 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="EnemyShip" parent="." unique_id=1667723798 instance=ExtResource("7_aqhsn")]
 position = Vector2(-261, 0)
 
+[node name="Guy" parent="EnemyShip" unique_id=428865472 instance=ExtResource("7_evklf")]
+position = Vector2(-50, 33)
+
 [node name="Ship" parent="." unique_id=2264427 instance=ExtResource("5_oadgx")]
 position = Vector2(418, -12)
 
 [node name="Characters" type="Node2D" parent="Ship" unique_id=237087755]
 
-[node name="Player" parent="Ship/Characters" unique_id=428865472 instance=ExtResource("7_evklf")]
+[node name="Player" parent="Ship/Characters" unique_id=1089187584 instance=ExtResource("7_evklf")]
 position = Vector2(8, 7)
 
 [node name="Marauder1" parent="Ship/Characters" unique_id=442580551 instance=ExtResource("7_evklf")]

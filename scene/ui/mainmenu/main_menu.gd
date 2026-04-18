@@ -21,6 +21,6 @@ func _on_settings_pressed():
 	set_show_menu(false)
 	add_child(load("res://scene/ui/mainmenu/Settings.tscn").instantiate())
 
-func set_show_menu(show : bool) -> void:
-	menu.visible = show
-	logo.visible = show
+func set_show_menu(show_menu : bool) -> void:
+	menu.visible = show_menu
+	logo.visible = show_menu

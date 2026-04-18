@@ -35,14 +35,14 @@ func _exit_tree():
 		Dialogic.timeline_ended.disconnect(_align_ships_intro)
 	Dialogic.end_timeline(true)
 
-func _on_text_show(info : Dictionary):
+func _on_text_show(_info : Dictionary):
 	if _text_first:
 		AudioHelper.play_click()
 	_text_first = true
 
-func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, camera := true, move_player := true) -> Tween:
+func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, change_camera := true, move_player := true) -> Tween:
 	# Switch to ship camera
-	if camera:
+	if change_camera:
 		pcam_player.priority = 0
 		pcam_ship.priority = 1
 		pcam_player.follow_target = player
