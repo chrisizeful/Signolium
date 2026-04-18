@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://g2njs1f5a5xj" path="res://scene/ship/EnemyShip.gd" id="1_0lx2d"]
 [ext_resource type="TileSet" uid="uid://doxt1sipmr4mu" path="res://assets/ship/ship_tileset.tres" id="2_p281v"]
+[ext_resource type="PackedScene" uid="uid://s513kp084pbe" path="res://scene/ui/starmap/MapBench.tscn" id="3_oh4m5"]
 
 [node name="EnemyShip" type="Node2D" unique_id=1667723798 node_paths=PackedStringArray("floor_layer", "wall_layer")]
 script = ExtResource("1_0lx2d")
@@ -19,3 +20,6 @@ tile_set = ExtResource("2_p281v")
 [node name="Exit" type="TileMapLayer" parent="." unique_id=1973260890]
 tile_map_data = PackedByteArray("AAAFAAAAAAAIAAIAAAAFAP//AAAIAAIAAAA=")
 tile_set = ExtResource("2_p281v")
+
+[node name="MapBench" parent="." unique_id=1139948950 instance=ExtResource("3_oh4m5")]
+position = Vector2(0, -52)

@@ -11,20 +11,14 @@ func _ready():
 
 func start_dialog(timeline : String) -> void:
 	active = true
-	# Change camera
-	var game := get_node("/root/Game") as Game
-	game.pcam_player.priority = 1
 	# Setup Dialogic
 	Dialogic.timeline_ended.connect(_on_dialog_finished, CONNECT_ONE_SHOT)
 	Dialogic.Text.speaker_updated.connect(_on_speaker_updated)
 	Dialogic.start(timeline)
 
 func _on_dialog_finished() -> void:
-	active = false
 	# Change camera
 	var game := get_node("/root/Game") as Game
-	game.pcam_player.priority = 0
-	game.pcam_ship.priority = 1
 	game.pcam_player.follow_target = game.player
 	Dialogic.Text.speaker_updated.disconnect(_on_speaker_updated)
 

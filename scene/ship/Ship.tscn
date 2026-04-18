@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://o1gem07xcybh"]
 
 [ext_resource type="Script" uid="uid://cgixk6bl6d6wm" path="res://scene/ship/ship.gd" id="1_xg117"]
+[ext_resource type="PackedScene" uid="uid://s513kp084pbe" path="res://scene/ui/starmap/MapBench.tscn" id="3_n85rb"]
 [ext_resource type="TileSet" uid="uid://doxt1sipmr4mu" path="res://assets/ship/ship_tileset.tres" id="3_pv2gx"]
 
 [node name="Ship" type="Node2D" unique_id=2264427 node_paths=PackedStringArray("floor_layer", "wall_layer")]
@@ -19,3 +20,6 @@ tile_set = ExtResource("3_pv2gx")
 [node name="Exit" type="TileMapLayer" parent="." unique_id=304486028]
 tile_map_data = PackedByteArray("AAD8////AAAGAAIAAAD8/wAAAAAGAAIAAAA=")
 tile_set = ExtResource("3_pv2gx")
+
+[node name="MapBench" parent="." unique_id=1139948950 instance=ExtResource("3_n85rb")]
+position = Vector2(6, -36)

@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://s513kp084pbe"]
+
+[ext_resource type="Texture2D" uid="uid://d85y2k886nsj" path="res://assets/ship/shipsheet.png" id="1_0l1vt"]
+[ext_resource type="Script" uid="uid://d1asjlygxd52h" path="res://scene/ui/starmap/map_bench.gd" id="1_tqgri"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqgri"]
+size = Vector2(32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41dui"]
+atlas = ExtResource("1_0l1vt")
+region = Rect2(16, 0, 32, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56l2d"]
+size = Vector2(32, 32)
+
+[node name="MapBench" type="StaticBody2D" unique_id=1671492815 node_paths=PackedStringArray("interact_area", "interact_panel")]
+script = ExtResource("1_tqgri")
+interact_area = NodePath("InteractArea")
+interact_panel = NodePath("InteractPanel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=231418809]
+shape = SubResource("RectangleShape2D_tqgri")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=921590425]
+texture = SubResource("AtlasTexture_41dui")
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=1338703279]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1633850443]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_56l2d")
+
+[node name="InteractPanel" type="PanelContainer" parent="." unique_id=2116000070]
+visible = false
+offset_left = -8.0
+offset_top = -26.0
+offset_right = 8.0
+offset_bottom = -10.0
+
+[node name="Label" type="Label" parent="InteractPanel" unique_id=257121558]
+layout_mode = 2
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
