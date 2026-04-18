@@ -10,7 +10,7 @@ func _ready() -> void:
 	quit.pressed.connect(get_tree().quit)
 
 func _on_play_pressed():
-	pass
+	get_tree().change_scene_to_file("res://scene/game/Game.tscn")
 
 func _on_settings_pressed():
-	pass
+	get_tree().change_scene_to_file("res://scene/ui/mainmenu/Settings.tscn")

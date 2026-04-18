@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://e1r870vqmqj3" path="res://assets/shader/starmap.gdshader" id="2_23dkc"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_a6okm"]
+resource_local_to_scene = true
 noise_type = 2
 frequency = 0.02
 fractal_type = 0
