@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://c3fcn68xvbpt3"]
 
 [ext_resource type="Script" uid="uid://bsnur5afa3ir3" path="res://scene/ui/mainmenu/settings.gd" id="1_mgcgr"]
-[ext_resource type="PackedScene" uid="uid://bogl20r0r4ahr" path="res://scene/game/Starfield.tscn" id="2_8f2hx"]
 
 [node name="Settings" type="Control" unique_id=2139606620 node_paths=PackedStringArray("back", "master", "sound", "music")]
 layout_mode = 3
@@ -15,10 +14,6 @@ back = NodePath("MarginContainer/Back")
 master = NodePath("MarginContainer/Menu/Master/HSlider")
 sound = NodePath("MarginContainer/Menu/Sound/HSlider")
 music = NodePath("MarginContainer/Menu/Music/HSlider")
-
-[node name="Starfield" parent="." unique_id=542465191 instance=ExtResource("2_8f2hx")]
-layout_mode = 0
-anchors_preset = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=2058222610]
 layout_mode = 1

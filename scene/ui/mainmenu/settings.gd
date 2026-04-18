@@ -1,4 +1,5 @@
 extends Control
+class_name Settings
 
 @export var back : BaseButton
 @export var master : HSlider
@@ -17,7 +18,9 @@ func _ready() -> void:
 	music.value_changed.connect(_on_music_changed)
 
 func _on_back_pressed():
-	get_tree().change_scene_to_file("res://scene/ui/mainmenu/MainMenu.tscn")
+	var menu = get_parent() as MainMenu
+	menu.menu.visible = true
+	queue_free()
 
 func _on_master_changed(value: float):
 	_set_bus_volume("Master", value)
