@@ -1,5 +1,7 @@
 extends Control
+class_name MainMenu
 
+@export var menu : Control
 @export var play : BaseButton
 @export var settings : BaseButton
 @export var quit : BaseButton
@@ -13,4 +15,5 @@ func _on_play_pressed():
 	get_tree().change_scene_to_file("res://scene/game/Game.tscn")
 
 func _on_settings_pressed():
-	get_tree().change_scene_to_file("res://scene/ui/mainmenu/Settings.tscn")
+	menu.visible = false
+	add_child(load("res://scene/ui/mainmenu/Settings.tscn").instantiate())
