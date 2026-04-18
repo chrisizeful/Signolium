@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bx75d27ba4hui"
+path="res://.godot/imported/11 die vonstantine.ogg-4c062ac5ce07507892b152cd649bb8ec.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/11 die vonstantine.ogg"
+dest_files=["res://.godot/imported/11 die vonstantine.ogg-4c062ac5ce07507892b152cd649bb8ec.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

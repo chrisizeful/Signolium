@@ -2,12 +2,17 @@
 
 [ext_resource type="Script" uid="uid://ccqjoj676bnmi" path="res://scene/character/character.gd" id="1_jo2ib"]
 [ext_resource type="Texture2D" uid="uid://cvdxlb8cvu07s" path="res://assets/character/Guy2.png" id="1_oolk3"]
+[ext_resource type="Script" uid="uid://dsq7hfxn4oacn" path="res://scene/character/health.gd" id="2_jvlcx"]
+[ext_resource type="PackedScene" uid="uid://dpms8ufhox4sp" path="res://scene/gun/Handgun.tscn" id="3_mmwew"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ig0a"]
 size = Vector2(13, 15)
 
 [node name="Player" type="CharacterBody2D" unique_id=428865472]
 script = ExtResource("1_jo2ib")
+
+[node name="Health" type="Node" parent="." unique_id=294128917]
+script = ExtResource("2_jvlcx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2027633550]
 texture = ExtResource("1_oolk3")
@@ -17,12 +22,11 @@ offset = Vector2(0, -7)
 position = Vector2(-1.5, -6.5)
 shape = SubResource("RectangleShape2D_7ig0a")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1054911859]
-zoom = Vector2(5, 5)
+[node name="Center" type="Node2D" parent="." unique_id=711719974]
+position = Vector2(-1.5, -6)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2092349518]
+[node name="Handgun" parent="Center" unique_id=963822433 instance=ExtResource("3_mmwew")]
+position = Vector2(5, 2)
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1735700520]
-
-[node name="Muzzle" type="Node2D" parent="." unique_id=354945894 groups=["Player"]]
-position = Vector2(0, -9)
+[node name="Muzzle" type="Node2D" parent="Center/Handgun" unique_id=1790935018]
+position = Vector2(5, -1)

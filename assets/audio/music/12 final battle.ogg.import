@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ct0ewhq3538e6"
+path="res://.godot/imported/12 final battle.ogg-5d145676f329914c07f520000c797265.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/12 final battle.ogg"
+dest_files=["res://.godot/imported/12 final battle.ogg-5d145676f329914c07f520000c797265.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
