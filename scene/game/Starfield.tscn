@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bogl20r0r4ahr"]
+
+[ext_resource type="Shader" uid="uid://dj31hby5t3g2g" path="res://assets/shader/starfield.gdshader" id="1_ynmrc"]
+[ext_resource type="Texture2D" uid="uid://p5m60f3ema5" path="res://assets/dawnbringer-32-1x.png" id="2_uro30"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iabks"]
+shader = ExtResource("1_ynmrc")
+shader_parameter/palette = ExtResource("2_uro30")
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/density = 0.9999999747
+shader_parameter/layer_parascale = 3
+shader_parameter/star_speed = Vector2(0.25, 0.1)
+shader_parameter/star_wave = Vector2(0.05, 0.01)
+shader_parameter/star_size = 3.0
+shader_parameter/star_rotate_speed = 0.2500001543749999
+shader_parameter/twinkle_effect = 0.6
+shader_parameter/twinkle_speed = 0.3
+shader_parameter/pixelate_count = 750.0
+
+[node name="Starfield" type="ColorRect" unique_id=542465191]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_iabks")
+custom_minimum_size = Vector2(2000, 2000)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1000.0
+offset_top = -1000.0
+offset_right = 1000.0
+offset_bottom = 1000.0
+grow_horizontal = 2
+grow_vertical = 2
