@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://ctccgcojuowi5"]
+
+[ext_resource type="PackedScene" uid="uid://bgbfcu2hguy3i" path="res://scene/character/Character.tscn" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://c8vj0cswcxmlw" path="res://assets/character/chimkin.png" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dpms8ufhox4sp" path="res://scene/gun/Handgun.tscn" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://byw06b0pdqk27" path="res://scene/gun/bullet.tscn" id="4_1bvp3"]
+
+[node name="Main" type="Node2D" unique_id=1182572044]
+
+[node name="Player" parent="." unique_id=428865472 instance=ExtResource("1_0xm2m")]
+
+[node name="Chimkin" type="Sprite2D" parent="." unique_id=309132393]
+position = Vector2(-14, -26)
+texture = ExtResource("2_1bvp3")
+
+[node name="handgun" parent="." unique_id=963822433 instance=ExtResource("3_1bvp3")]
+
+[node name="Bullet" parent="." unique_id=52544416 instance=ExtResource("4_1bvp3")]
+position = Vector2(-53, 16)
