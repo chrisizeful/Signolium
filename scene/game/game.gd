@@ -66,7 +66,18 @@ func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, chan
 		var target_x = ship_center_x - TILE_SIZE / 2.0
 		var target_position := Vector2(target_x, player.global_position.y)
 		tween.tween_property(player, "global_position", target_position, 0.7).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	# If this is the boss play the final cutscene
+	if is_boss():
+		await tween.finished
+		set_enabled(player, false)
+		cutscene.start_dialog("res://assets/dialog/timeline/end.dtl")
+		Dialogic.timeline_ended.connect(_on_end_ended)
+		return tween
 	return tween
+
+func _on_end_ended():
+	Dialogic.timeline_ended.disconnect(_on_end_ended)
+	set_enabled(player, true)
 
 func _align_ships_intro(player_ship : Ship = ship, other_ship : Ship = ship_enemy):
 	Dialogic.timeline_ended.disconnect(_align_ships_intro)
