@@ -150,10 +150,13 @@ func _input(event: InputEvent) -> void:
 			if _player_cell not in _visited_cells:
 				_visited_cells.append(_player_cell)
 			# Mark new cell as visited too
+			var spawn := not _visited_cells.has(val)
+			game.ship_enemy.set_open(false)
 			if val not in _visited_cells:
 				_visited_cells.append(val)
 			_update_visited_shader()
 			var center_uv : Vector2 = _cell_centers.get(val, uv)
+			# Determine if this is a new cell before updating _player_cell
 			_player_cell = val
 			sector_clicked.emit(val, center_uv)
 			_move_icon_to_cell(_player_icon, center_uv)
@@ -167,8 +170,12 @@ func _input(event: InputEvent) -> void:
 			await animator.animation_finished
 			game.set_enabled(game.player, true)
 			_moved = false
-			# Spawn random ship
-			_spawn_ship()
+			# Current ship takes off
+			if game.ship_random:
+				await game.ship_random.take_off()
+			# Spawn random ship if we haven't been here
+			if spawn:
+				_spawn_ship()
 
 func _move_target_to_new_sector():
 	# Find all possible cells not visited and not the player's current cell
@@ -249,9 +256,8 @@ func _spawn_ship():
 	var path := "res://scene/ship/ships/" + _get_random_ship()
 	var ship = load(path).instantiate() as Ship
 	var game := get_node("/root/Game") as Game
-	if game.ship_random:
-		game.ship_random.queue_free()
 	game.ship_random = ship
-	game.add_child(ship)
+	ship.position = Vector2(640, 0)
+	game.root.add_child(ship)
 	game.align_ships(ship, game.ship_enemy, false, false)
 	game.ship_enemy.bench.disabled = true

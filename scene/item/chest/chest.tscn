@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cg705gdstknsk"]
+
+[ext_resource type="Texture2D" uid="uid://d85y2k886nsj" path="res://assets/ship/shipsheet.png" id="1_aj7ht"]
+[ext_resource type="Script" uid="uid://dcs4m0lcjdcia" path="res://scene/item/chest/chest.gd" id="2_ilj1u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilj1u"]
+atlas = ExtResource("1_aj7ht")
+region = Rect2(48, 0, 32, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uqngy"]
+radius = 14.0
+
+[node name="Chest" type="Sprite2D" unique_id=947572259 node_paths=PackedStringArray("area")]
+texture = SubResource("AtlasTexture_ilj1u")
+script = ExtResource("2_ilj1u")
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2099025995]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1144329004]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_uqngy")

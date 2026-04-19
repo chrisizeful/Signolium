@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_oadgx"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_oadgx"]
 [ext_resource type="PackedScene" uid="uid://o1gem07xcybh" path="res://scene/ship/Ship.tscn" id="5_oadgx"]
-[ext_resource type="Script" uid="uid://dimvdouy8g0sv" path="res://addons/phantom_camera/scripts/resources/phantom_camera_noise_2d.gd" id="6_j0sn7"]
 [ext_resource type="PackedScene" uid="uid://cuinqkgpqthtu" path="res://scene/ship/EnemyShip.tscn" id="7_aqhsn"]
 [ext_resource type="PackedScene" uid="uid://bgbfcu2hguy3i" path="res://scene/character/Character.tscn" id="7_evklf"]
 [ext_resource type="PackedScene" uid="uid://bmwc2wlawaonr" path="res://scene/ui/starmap/Starmap.tscn" id="9_evklf"]
@@ -16,15 +15,13 @@
 [ext_resource type="Script" uid="uid://cu1djjr2wtsgn" path="res://scene/character/player.gd" id="11_hbq3w"]
 [ext_resource type="Texture2D" uid="uid://fjx7ofcsakpc" path="res://assets/ui/heart.png" id="13_qfg72"]
 [ext_resource type="Script" uid="uid://csv3vnn0eyrl3" path="res://scene/game/health_label.gd" id="14_r5bjy"]
+[ext_resource type="Texture2D" uid="uid://bek4fpsqrkqfr" path="res://assets/ui/coin.png" id="14_w2egd"]
+[ext_resource type="Script" uid="uid://ds6cri1lm75qs" path="res://scene/game/coin_label.gd" id="15_w2egd"]
 
 [sub_resource type="Resource" id="Resource_iabks"]
 script = ExtResource("3_oadgx")
 
-[sub_resource type="Resource" id="Resource_j0sn7"]
-script = ExtResource("6_j0sn7")
-metadata/_custom_type_script = "uid://dimvdouy8g0sv"
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_r5bjy"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eff0e"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.02
@@ -32,128 +29,181 @@ fractal_type = 0
 cellular_jitter = 0.8
 cellular_return_type = 0
 
-[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "crewman", "characters", "camera", "pcam_ship", "pcam_player", "interface", "starmap", "cutscene", "ship", "ship_enemy")]
+[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "crewman", "characters", "camera", "pcam_ship", "pcam_player", "main_viewport", "interface", "starmap", "cutscene", "root", "ship", "ship_enemy")]
 script = ExtResource("1_bugwe")
-player = NodePath("Ship/Characters/Player")
-crewman = NodePath("EnemyShip/Crewman")
-characters = NodePath("Ship/Characters")
-camera = NodePath("Camera2D")
-pcam_ship = NodePath("ShipCamera")
-pcam_player = NodePath("PlayerCamera")
+player = NodePath("SubViewportContainer2/SubViewport/Root/Ship/Characters/Player")
+crewman = NodePath("SubViewportContainer2/SubViewport/Root/EnemyShip/Crewman")
+characters = NodePath("SubViewportContainer2/SubViewport/Root/Ship/Characters")
+camera = NodePath("SubViewportContainer2/SubViewport/Camera2D")
+pcam_ship = NodePath("SubViewportContainer2/SubViewport/ShipCamera")
+pcam_player = NodePath("SubViewportContainer2/SubViewport/PlayerCamera")
+main_viewport = NodePath("SubViewportContainer2/SubViewport")
 interface = NodePath("Interface")
 starmap = NodePath("Interface/Starmap")
-cutscene = NodePath("Cutscene")
-ship = NodePath("Ship")
-ship_enemy = NodePath("EnemyShip")
+cutscene = NodePath("SubViewportContainer2/SubViewport/Cutscene")
+root = NodePath("SubViewportContainer2/SubViewport/Root")
+ship = NodePath("SubViewportContainer2/SubViewport/Root/Ship")
+ship_enemy = NodePath("SubViewportContainer2/SubViewport/Root/EnemyShip")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1806890310]
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="." unique_id=1804850670]
+custom_minimum_size = Vector2(960, 540)
+offset_right = 960.0
+offset_bottom = 540.0
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2" unique_id=1773227665]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(320, 180)
+render_target_update_mode = 4
+
+[node name="Root" type="Node2D" parent="SubViewportContainer2/SubViewport" unique_id=1802453780]
+
+[node name="EnemyShip" parent="SubViewportContainer2/SubViewport/Root" unique_id=1667723798 instance=ExtResource("7_aqhsn")]
+position = Vector2(-261, 0)
+
+[node name="Crewman" parent="SubViewportContainer2/SubViewport/Root/EnemyShip" unique_id=428865472 instance=ExtResource("7_evklf")]
+position = Vector2(-50, 33)
+script = ExtResource("9_suiky")
+enabled = false
+violent = true
+follow = false
+
+[node name="Ship" parent="SubViewportContainer2/SubViewport/Root" unique_id=2264427 instance=ExtResource("5_oadgx")]
+position = Vector2(418, -12)
+align_time = 1.0
+
+[node name="Characters" type="Node2D" parent="SubViewportContainer2/SubViewport/Root/Ship" unique_id=237087755]
+
+[node name="Player" parent="SubViewportContainer2/SubViewport/Root/Ship/Characters" unique_id=1089187584 instance=ExtResource("7_evklf")]
+position = Vector2(8, 7)
+script = ExtResource("11_hbq3w")
+
+[node name="Health" parent="SubViewportContainer2/SubViewport/Root/Ship/Characters/Player" index="0" unique_id=294128917]
+value = 10
+
+[node name="Marauder1" parent="SubViewportContainer2/SubViewport/Root/Ship/Characters" unique_id=442580551 instance=ExtResource("7_evklf")]
+position = Vector2(8, -19)
+
+[node name="Marauder2" parent="SubViewportContainer2/SubViewport/Root/Ship/Characters" unique_id=658639927 instance=ExtResource("7_evklf")]
+position = Vector2(63, -5)
+
+[node name="Marauder3" parent="SubViewportContainer2/SubViewport/Root/Ship/Characters" unique_id=2027457133 instance=ExtResource("7_evklf")]
+position = Vector2(-9, 31)
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer2/SubViewport" unique_id=1806890310]
 physics_interpolation_mode = 1
 top_level = true
 position = Vector2(426, -5)
-zoom = Vector2(2.5, 2.5)
 editor_draw_limits = true
 
-[node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=693102190]
+[node name="PhantomCameraHost" type="Node" parent="SubViewportContainer2/SubViewport/Camera2D" unique_id=693102190]
 process_priority = 300
 process_physics_priority = 300
 script = ExtResource("2_oadgx")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="Starfield" parent="Camera2D" unique_id=542465191 instance=ExtResource("2_72y1k")]
+[node name="Starfield" parent="SubViewportContainer2/SubViewport/Camera2D" unique_id=542465191 instance=ExtResource("2_72y1k")]
 z_index = -100
 offset_left = -1000.0
 offset_top = -1000.0
 offset_right = 1000.0
 offset_bottom = 1000.0
 
-[node name="ShipCamera" type="Node2D" parent="." unique_id=1410217180 node_paths=PackedStringArray("follow_targets")]
+[node name="ShipCamera" type="Node2D" parent="SubViewportContainer2/SubViewport" unique_id=1410217180 node_paths=PackedStringArray("follow_targets")]
 top_level = true
 position = Vector2(78.5, -6)
 script = ExtResource("2_3b7nn")
 follow_mode = 3
-follow_targets = [NodePath("../Ship"), NodePath("../EnemyShip")]
+follow_targets = [NodePath("../Root/Ship"), NodePath("../Root/EnemyShip")]
+zoom = Vector2(0.5, 0.5)
 tween_resource = SubResource("Resource_iabks")
 tween_on_load = false
 follow_damping = true
 draw_limits = true
-noise = SubResource("Resource_j0sn7")
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="PlayerCamera" type="Node2D" parent="." unique_id=699005521 node_paths=PackedStringArray("follow_target")]
+[node name="PlayerCamera" type="Node2D" parent="SubViewportContainer2/SubViewport" unique_id=699005521 node_paths=PackedStringArray("follow_target")]
 top_level = true
 position = Vector2(426, -5)
 script = ExtResource("2_3b7nn")
 priority = 1
 follow_mode = 2
-follow_target = NodePath("../Ship/Characters/Player")
-zoom = Vector2(2.5, 2.5)
+follow_target = NodePath("../Root/Ship/Characters/Player")
 tween_resource = SubResource("Resource_iabks")
 tween_on_load = false
 follow_damping = true
+follow_damping_value = Vector2(0.15, 0.15)
 dead_zone_width = 0.15
 dead_zone_height = 0.15
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="EnemyShip" parent="." unique_id=1667723798 instance=ExtResource("7_aqhsn")]
-position = Vector2(-261, 0)
-
-[node name="Crewman" parent="EnemyShip" unique_id=428865472 instance=ExtResource("7_evklf")]
-position = Vector2(-50, 33)
-script = ExtResource("9_suiky")
-enabled = false
-violent = true
-follow = false
-shoot_rate = 0.5
-
-[node name="Ship" parent="." unique_id=2264427 instance=ExtResource("5_oadgx")]
-position = Vector2(418, -12)
-
-[node name="Characters" type="Node2D" parent="Ship" unique_id=237087755]
-
-[node name="Player" parent="Ship/Characters" unique_id=1089187584 instance=ExtResource("7_evklf")]
-position = Vector2(8, 7)
-script = ExtResource("11_hbq3w")
-
-[node name="Health" parent="Ship/Characters/Player" index="0" unique_id=294128917]
-value = 10
-
-[node name="Marauder1" parent="Ship/Characters" unique_id=442580551 instance=ExtResource("7_evklf")]
-position = Vector2(8, -19)
-
-[node name="Marauder2" parent="Ship/Characters" unique_id=658639927 instance=ExtResource("7_evklf")]
-position = Vector2(63, -5)
-
-[node name="Marauder3" parent="Ship/Characters" unique_id=2027457133 instance=ExtResource("7_evklf")]
-position = Vector2(-9, 31)
-
-[node name="Cutscene" type="Node" parent="." unique_id=1488308772]
+[node name="Cutscene" type="Node" parent="SubViewportContainer2/SubViewport" unique_id=1488308772]
 script = ExtResource("10_q1djn")
 
 [node name="Interface" type="CanvasLayer" parent="." unique_id=868436222]
 layer = 20
 
-[node name="GUI" type="MarginContainer" parent="Interface" unique_id=915941665]
-offset_right = 16.0
-offset_bottom = 16.0
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Interface" unique_id=464550370]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
 
-[node name="HealthContainer" type="HBoxContainer" parent="Interface/GUI" unique_id=1866133816]
+[node name="SubViewport" type="SubViewport" parent="Interface/SubViewportContainer" unique_id=436995012]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(480, 270)
+render_target_update_mode = 4
+
+[node name="GUI" type="MarginContainer" parent="Interface/SubViewportContainer/SubViewport" unique_id=915941665]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/SubViewportContainer/SubViewport/GUI" unique_id=763360224]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Interface/GUI/HealthContainer" unique_id=1912006000]
+[node name="HealthContainer" type="HBoxContainer" parent="Interface/SubViewportContainer/SubViewport/GUI/VBoxContainer" unique_id=1866133816]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Interface/SubViewportContainer/SubViewport/GUI/VBoxContainer/HealthContainer" unique_id=1912006000]
 layout_mode = 2
 texture = ExtResource("13_qfg72")
 
-[node name="HealthLabel" type="Label" parent="Interface/GUI/HealthContainer" unique_id=1419695044 node_paths=PackedStringArray("player")]
+[node name="HealthLabel" type="Label" parent="Interface/SubViewportContainer/SubViewport/GUI/VBoxContainer/HealthContainer" unique_id=1419695044 node_paths=PackedStringArray("player")]
 layout_mode = 2
 text = "10"
 script = ExtResource("14_r5bjy")
-player = NodePath("../../../../Ship/Characters/Player")
+player = NodePath("../../../../../../../SubViewportContainer2/SubViewport/Root/Ship/Characters/Player")
+
+[node name="CoinContainer" type="HBoxContainer" parent="Interface/SubViewportContainer/SubViewport/GUI/VBoxContainer" unique_id=436961012]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Interface/SubViewportContainer/SubViewport/GUI/VBoxContainer/CoinContainer" unique_id=380804647]
+layout_mode = 2
+texture = ExtResource("14_w2egd")
+
+[node name="CoinLabel" type="Label" parent="Interface/SubViewportContainer/SubViewport/GUI/VBoxContainer/CoinContainer" unique_id=1249242388]
+layout_mode = 2
+text = "0/6"
+script = ExtResource("15_w2egd")
 
 [node name="Starmap" parent="Interface" unique_id=1468163657 instance=ExtResource("9_evklf")]
 visible = false
-noise = SubResource("FastNoiseLite_r5bjy")
+noise = SubResource("FastNoiseLite_eff0e")
 
 [node name="Crosshair" parent="Interface" unique_id=1675944540 instance=ExtResource("11_7ce1y")]
 
-[editable path="Ship/Characters/Player"]
+[editable path="SubViewportContainer2/SubViewport/Root/Ship/Characters/Player"]

@@ -11,10 +11,12 @@ const TILE_SIZE = 16
 @export var pcam_ship : PhantomCamera2D
 @export var pcam_player : PhantomCamera2D
 
+@export var main_viewport : SubViewport
 @export var interface : CanvasLayer
 @export var starmap : Starmap
 @export var cutscene : Cutscene
 
+@export var root : Node2D
 @export var ship : Ship
 @export var ship_enemy : Ship
 @export var ship_random : Ship
@@ -53,19 +55,18 @@ func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, chan
 	other_ship.align(player_ship)
 	# Wait for ships to connect
 	await get_tree().create_timer(player_ship.align_time).timeout
-	# Open doors
-	player_ship.set_open(true)
-	other_ship.set_open(true)
+	# Open doors as part of tween
+	var tween := create_tween()
+	tween.tween_callback(Callable(player_ship, "set_open").bind(true))
+	tween.tween_callback(Callable(other_ship, "set_open").bind(true))
 	# Tween player to center of enemy ship
 	if move_player:
 		var ship_width := other_ship.get_width() * TILE_SIZE
 		var ship_center_x := other_ship.position.x + ship_width / 2.0
 		var target_x = ship_center_x - TILE_SIZE / 2.0
 		var target_position := Vector2(target_x, player.global_position.y)
-		var tween := create_tween()
 		tween.tween_property(player, "global_position", target_position, 0.7).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-		return tween
-	return null
+	return tween
 
 func _align_ships_intro(player_ship : Ship = ship, other_ship : Ship = ship_enemy):
 	Dialogic.timeline_ended.disconnect(_align_ships_intro)
@@ -83,17 +84,14 @@ func _take_off(player_ship : Ship = ship, other_ship : Ship = ship_enemy):
 	player_ship.set_open(false)
 	other_ship.set_open(false)
 	# Camera on player
-	player.reparent(self)
+	player.reparent(root)
 	pcam_player.priority = 1
 	pcam_ship.priority = 0
 	pcam_player.follow_mode = PhantomCamera2D.FollowMode.SIMPLE
 	pcam_player.follow_target = player
-	# Move the ship off screen by tweening its position
-	var target_position := Vector2(2000, player_ship.position.y)
-	var tween := create_tween()
-	tween.tween_property(player_ship, "position", target_position, 1.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-	# Part 3
-	await tween.finished
+	# Move ship off screen, part 3 of dialog
+	var tween = ship.take_off()
+	await tween
 	Dialogic.timeline_ended.connect(_end_cutscene)
 	cutscene.start_dialog("res://assets/dialog/timeline/intro3.dtl")
 
@@ -128,6 +126,7 @@ func _squash_stretch(sprite : Character) -> void:
 		sprite.rotation = 0.0
 
 func _input(event: InputEvent) -> void:
+	main_viewport.push_input(event)
 	if event.is_action_pressed("pause"):
 		AudioHelper.play_pause()
 		var pause = load("res://scene/ui/pause/pause_menu.tscn").instantiate()

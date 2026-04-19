@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://doxt1sipmr4mu" path="res://assets/ship/ship_tileset.tres" id="2_wsps4"]
 [ext_resource type="PackedScene" uid="uid://s513kp084pbe" path="res://scene/ui/starmap/MapBench.tscn" id="3_wsps4"]
 [ext_resource type="PackedScene" uid="uid://bgbfcu2hguy3i" path="res://scene/character/Character.tscn" id="4_d3yeg"]
+[ext_resource type="Script" uid="uid://ba3yhgsg68d22" path="res://scene/character/crewman.gd" id="5_q78py"]
 
 [node name="Ship" type="Node2D" unique_id=2264427 node_paths=PackedStringArray("floor_layer", "wall_layer", "exit_layer", "closed_layer")]
 z_index = -1
@@ -35,12 +36,28 @@ position = Vector2(24, -132)
 
 [node name="Player" parent="." unique_id=428865472 instance=ExtResource("4_d3yeg")]
 position = Vector2(27, -100)
+script = ExtResource("5_q78py")
+enabled = true
+violent = true
+follow = false
 
 [node name="Player2" parent="." unique_id=1275763220 instance=ExtResource("4_d3yeg")]
 position = Vector2(17, 102)
+script = ExtResource("5_q78py")
+enabled = true
+violent = true
+follow = false
 
 [node name="Player3" parent="." unique_id=222685486 instance=ExtResource("4_d3yeg")]
 position = Vector2(-8, -42)
+script = ExtResource("5_q78py")
+enabled = true
+violent = true
+follow = false
 
 [node name="Player4" parent="." unique_id=711142218 instance=ExtResource("4_d3yeg")]
 position = Vector2(58, 15)
+script = ExtResource("5_q78py")
+enabled = true
+violent = true
+follow = false
