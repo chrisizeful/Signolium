@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cpmlif3xle48q"
+path="res://.godot/imported/06 pirates attack.ogg-7183e5aa2f86a79fd5fc74e093cffceb.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/06 pirates attack.ogg"
+dest_files=["res://.godot/imported/06 pirates attack.ogg-7183e5aa2f86a79fd5fc74e093cffceb.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

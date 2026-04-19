@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://baweh4s3aui3i"
+path="res://.godot/imported/09 green forest.ogg-8a3ca4ca2a577a7465feb9678b33f984.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/09 green forest.ogg"
+dest_files=["res://.godot/imported/09 green forest.ogg-8a3ca4ca2a577a7465feb9678b33f984.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

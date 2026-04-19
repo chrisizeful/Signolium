@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cgvg511iusixl"
+path="res://.godot/imported/13 the end.ogg-229d951b05bd12ea95a35276420986aa.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/13 the end.ogg"
+dest_files=["res://.godot/imported/13 the end.ogg-229d951b05bd12ea95a35276420986aa.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

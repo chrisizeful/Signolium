@@ -10,6 +10,7 @@ const TILE_SIZE = 16
 @export var pcam_ship : PhantomCamera2D
 @export var pcam_player : PhantomCamera2D
 
+@export var interface : CanvasLayer
 @export var starmap : Starmap
 @export var cutscene : Cutscene
 
@@ -28,17 +29,25 @@ func _ready():
 	Dialogic.Text.about_to_show_text.connect(_on_text_show)
 	Dialogic.timeline_ended.connect(AudioHelper.play_click)
 
-func _on_text_show(info : Dictionary):
+func _exit_tree():
+	Dialogic.timeline_ended.disconnect(AudioHelper.play_click)
+	if Dialogic.timeline_ended.is_connected(_align_ships_intro):
+		Dialogic.timeline_ended.disconnect(_align_ships_intro)
+	Dialogic.end_timeline(true)
+
+func _on_text_show(_info : Dictionary):
 	if _text_first:
 		AudioHelper.play_click()
 	_text_first = true
 
-func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, camera := true, move_player := true) -> Tween:
+func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, change_camera := true, move_player := true) -> Tween:
 	# Switch to ship camera
-	if camera:
+	if change_camera:
 		pcam_player.priority = 0
 		pcam_ship.priority = 1
 		pcam_player.follow_target = player
+	# Wait for camera transition
+	await get_tree().create_timer(.66).timeout
 	# Align
 	other_ship.align(player_ship)
 	# Wait for ships to connect
@@ -96,3 +105,8 @@ func set_enabled(node : Node, enabled : bool):
 	node.set_process(enabled)
 	node.set_physics_process(enabled)
 	node.set_process_input(enabled)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		var pause = load("res://scene/ui/pause/pause_menu.tscn").instantiate()
+		interface.add_child(pause)

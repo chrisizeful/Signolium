@@ -2,12 +2,5 @@
 
 [ext_resource type="Texture2D" uid="uid://cwgo30vqdo07u" path="res://assets/character/handgun.png" id="1_8ctr4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ctr4"]
-size = Vector2(5, 3)
-
-[node name="handgun" type="Sprite2D" unique_id=963822433]
+[node name="Handgun" type="Sprite2D" unique_id=963822433]
 texture = ExtResource("1_8ctr4")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=914869953]
-position = Vector2(2.5, -0.5)
-shape = SubResource("RectangleShape2D_8ctr4")
