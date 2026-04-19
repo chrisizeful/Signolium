@@ -186,7 +186,7 @@ func _input(event: InputEvent) -> void:
 			# Spawn random ship if we haven't been here
 			if spawn:
 				var ship = null
-				if game.player.coins >= Player.coins_required:
+				if val == _target_cell and game.player.coins >= Player.coins_required:
 					ship = game.ship
 				_spawn_ship(ship)
 
