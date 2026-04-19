@@ -125,6 +125,26 @@ func _squash_stretch(sprite : Character) -> void:
 	else:
 		sprite.rotation = 0.0
 
+func is_boss() -> bool:
+	return ship_random == ship
+
+func enemy_count() -> int:
+	if not ship_random:
+		return 0
+	var count = _count_enemies(ship_random)
+	if ship_random == ship:
+		count += _count_enemies(characters)
+	return count
+
+func _count_enemies(root : Node) -> int:
+	var count = 0
+	if not ship_random:
+		return count
+	for child in ship_random.get_children():
+		if child is DefaultCrewman and is_instance_valid(child) and not child.is_queued_for_deletion():
+			count += 1
+	return count
+
 func _input(event: InputEvent) -> void:
 	main_viewport.push_input(event)
 	if event.is_action_pressed("pause"):

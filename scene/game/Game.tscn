@@ -21,7 +21,7 @@
 [sub_resource type="Resource" id="Resource_iabks"]
 script = ExtResource("3_oadgx")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_eff0e"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w2egd"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.02
@@ -85,12 +85,24 @@ value = 10
 
 [node name="Marauder1" parent="SubViewportContainer2/SubViewport/Root/Ship/Characters" unique_id=442580551 instance=ExtResource("7_evklf")]
 position = Vector2(8, -19)
+script = ExtResource("9_suiky")
+enabled = false
+violent = false
+follow = false
 
 [node name="Marauder2" parent="SubViewportContainer2/SubViewport/Root/Ship/Characters" unique_id=658639927 instance=ExtResource("7_evklf")]
 position = Vector2(63, -5)
+script = ExtResource("9_suiky")
+enabled = false
+violent = false
+follow = false
 
 [node name="Marauder3" parent="SubViewportContainer2/SubViewport/Root/Ship/Characters" unique_id=2027457133 instance=ExtResource("7_evklf")]
 position = Vector2(-9, 31)
+script = ExtResource("9_suiky")
+enabled = false
+violent = false
+follow = false
 
 [node name="Camera2D" type="Camera2D" parent="SubViewportContainer2/SubViewport" unique_id=1806890310]
 physics_interpolation_mode = 1
@@ -202,7 +214,7 @@ script = ExtResource("15_w2egd")
 
 [node name="Starmap" parent="Interface" unique_id=1468163657 instance=ExtResource("9_evklf")]
 visible = false
-noise = SubResource("FastNoiseLite_eff0e")
+noise = SubResource("FastNoiseLite_w2egd")
 
 [node name="Crosshair" parent="Interface" unique_id=1675944540 instance=ExtResource("11_7ce1y")]
 
