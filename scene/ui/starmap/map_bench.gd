@@ -29,11 +29,7 @@ func _on_body_entered(body : Node2D):
 		interact_panel.visible = false
 		if not game.ship_random:
 			return
-		var enemy_count = 0
-		for child in game.ship_random.get_children():
-			if child is DefaultCrewman:
-				enemy_count += 1
-		if enemy_count == 0:
+		if game.enemy_count() == 0:
 			disabled = false
 		else:
 			return

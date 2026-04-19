@@ -33,6 +33,9 @@ func play_pickup():
 func play_coin():
 	play_sound("res://assets/audio/Pickup.wav")
 
+func play_error():
+	play_sound("res://assets/audio/Pickup.wav")
+
 func play_shoot():
 	var files := [
 		"res://assets/audio/Shoot0.wav",

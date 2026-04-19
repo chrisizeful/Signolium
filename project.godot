@@ -38,6 +38,7 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "crewman_death": "res://assets/dialog/timeline/crewman_death.dtl",
+"end": "res://assets/dialog/timeline/end.dtl",
 "intro": "res://assets/dialog/timeline/intro.dtl",
 "intro2": "res://assets/dialog/timeline/intro2.dtl",
 "intro3": "res://assets/dialog/timeline/intro3.dtl"

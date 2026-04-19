@@ -42,8 +42,12 @@ func _show_alert():
 	alert.visible = false
 
 func _on_death():
-	# Chance to spawn heart
 	var game := get_node("/root/Game") as Game
+	# If this is the original ship and every enemy is dead, we win
+	if game.is_boss() and game.enemy_count() == 0:
+		get_tree().call_deferred("change_scene_to_file", "res://scene/ui/gameover/WinScreen.tscn")
+		return
+	# Chance to spawn heart
 	if randf() < .33:
 		var heart := load("res://scene/item/heart/Heart.tscn").instantiate() as Heart
 		game.root.call_deferred("add_child", heart)

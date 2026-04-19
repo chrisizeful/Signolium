@@ -66,7 +66,18 @@ func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, chan
 		var target_x = ship_center_x - TILE_SIZE / 2.0
 		var target_position := Vector2(target_x, player.global_position.y)
 		tween.tween_property(player, "global_position", target_position, 0.7).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	# If this is the boss play the final cutscene
+	if is_boss():
+		await tween.finished
+		set_enabled(player, false)
+		cutscene.start_dialog("res://assets/dialog/timeline/end.dtl")
+		Dialogic.timeline_ended.connect(_on_end_ended)
+		return tween
 	return tween
+
+func _on_end_ended():
+	Dialogic.timeline_ended.disconnect(_on_end_ended)
+	set_enabled(player, true)
 
 func _align_ships_intro(player_ship : Ship = ship, other_ship : Ship = ship_enemy):
 	Dialogic.timeline_ended.disconnect(_align_ships_intro)
@@ -124,6 +135,26 @@ func _squash_stretch(sprite : Character) -> void:
 		sprite.rotation = 0.15 * sin(Time.get_ticks_msec() / 180.0)
 	else:
 		sprite.rotation = 0.0
+
+func is_boss() -> bool:
+	return ship_random == ship
+
+func enemy_count() -> int:
+	if not ship_random:
+		return 0
+	var count = _count_enemies(ship_random)
+	if ship_random == ship:
+		count += _count_enemies(characters)
+	return count
+
+func _count_enemies(root : Node) -> int:
+	var count = 0
+	if not ship_random:
+		return count
+	for child in ship_random.get_children():
+		if child is DefaultCrewman and is_instance_valid(child) and not child.is_queued_for_deletion():
+			count += 1
+	return count
 
 func _input(event: InputEvent) -> void:
 	main_viewport.push_input(event)

@@ -15,6 +15,7 @@ var _cell_neighbors : Dictionary
 var _player_icon : TextureRect
 
 var _player_cell : float = 0.0
+var _target_cell : float = 0.0
 var _visited_cells : Array = []
 var _target_icon : TextureRect
 var _moved : bool
@@ -78,7 +79,12 @@ func _ready() -> void:
 	if _player_cell not in _visited_cells:
 		_visited_cells.append(_player_cell)
 	_update_visited_shader()
-	_target_icon = add_sector_icon(Vector2(0.3, 0.7), preload("res://assets/ui/target-icon.png"))
+	# Add target icon and set _target_cell to its cell value
+	var target_uv := Vector2(0.3, 0.7)
+	px = clampi(int(target_uv.x * NOISE_SIZE), 0, NOISE_SIZE - 1)
+	py = clampi(int(target_uv.y * NOISE_SIZE), 0, NOISE_SIZE - 1)
+	_target_cell = _cell_image.get_pixel(px, py).r
+	_target_icon = add_sector_icon(target_uv, preload("res://assets/ui/target-icon.png"))
 	# Tween to continuously blink the target icon
 	var blink_tween = create_tween()
 	blink_tween.set_loops()
@@ -144,7 +150,12 @@ func _input(event: InputEvent) -> void:
 			var px := clampi(int(uv.x * NOISE_SIZE), 0, NOISE_SIZE - 1)
 			var py := clampi(int(uv.y * NOISE_SIZE), 0, NOISE_SIZE - 1)
 			var val := _cell_image.get_pixel(px, py).r
+			# Only can move to neighbors
 			if not is_neighbor(_player_cell, val):
+				return
+			# Check if we meet coin requirement to go to boss
+			if val == _target_cell and game.player.coins < Player.coins_required:
+				AudioHelper.play_error()
 				return
 			# Mark previous cell as visited
 			if _player_cell not in _visited_cells:
@@ -160,7 +171,6 @@ func _input(event: InputEvent) -> void:
 			_player_cell = val
 			sector_clicked.emit(val, center_uv)
 			_move_icon_to_cell(_player_icon, center_uv)
-			_move_target_to_new_sector()
 			_moved = true
 			# Wait a second, close the map
 			AudioHelper.play_sector()
@@ -175,30 +185,10 @@ func _input(event: InputEvent) -> void:
 				await game.ship_random.take_off()
 			# Spawn random ship if we haven't been here
 			if spawn:
-				_spawn_ship()
-
-func _move_target_to_new_sector():
-	# Find all possible cells not visited and not the player's current cell
-	var possible_cells = []
-	for cell in _cell_centers.keys():
-		if cell != _player_cell and cell not in _visited_cells:
-			possible_cells.append(cell)
-	if possible_cells.size() == 0:
-		return # No unvisited cells left
-	# Find the cell with the maximum distance from the player
-	var max_dist = -1
-	var furthest_cells = []
-	for cell in possible_cells:
-		var dist = cell_distance(_player_cell, cell)
-		if dist > max_dist:
-			max_dist = dist
-			furthest_cells = [cell]
-		elif dist == max_dist:
-			furthest_cells.append(cell)
-	# Pick one of the furthest cells at random
-	var new_target_cell = furthest_cells[randi() % furthest_cells.size()]
-	var center_uv : Vector2 = _cell_centers.get(new_target_cell, Vector2(0.5, 0.5))
-	_move_icon_to_cell(_target_icon, center_uv)
+				var ship = null
+				if val == _target_cell and game.player.coins >= Player.coins_required:
+					ship = game.ship
+				_spawn_ship(ship)
 
 func _update_visited_shader():
 	var arr = PackedFloat32Array(_visited_cells)
@@ -252,12 +242,16 @@ func _get_random_ship() -> String:
 		print("An error occurred when trying to access the path.")
 	return ""
 
-func _spawn_ship():
-	var path := "res://scene/ship/ships/" + _get_random_ship()
-	var ship = load(path).instantiate() as Ship
+func _spawn_ship(ship : Ship = null):
+	if not ship:
+		var path := "res://scene/ship/ships/" + _get_random_ship()
+		ship = load(path).instantiate() as Ship
 	var game := get_node("/root/Game") as Game
+	if game.ship_random:
+		game.ship_random.queue_free()
 	game.ship_random = ship
 	ship.position = Vector2(640, 0)
-	game.root.add_child(ship)
+	if not ship.is_inside_tree():
+		game.root.add_child(ship)
 	game.align_ships(ship, game.ship_enemy, false, false)
 	game.ship_enemy.bench.disabled = true
