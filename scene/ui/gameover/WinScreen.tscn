@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b8lugxaafqbo" path="res://scene/ui/gameover/win_screen.gd" id="1_6qe8h"]
 [ext_resource type="PackedScene" uid="uid://bogl20r0r4ahr" path="res://scene/game/Starfield.tscn" id="2_n7k0m"]
 [ext_resource type="PackedScene" uid="uid://cbfptxhdp321i" path="res://scene/crosshair/crosshair.tscn" id="3_tjyqx"]
+[ext_resource type="AudioStream" uid="uid://5vg5ne5bb5wn" path="res://assets/audio/music/game_over.mp3" id="4_n7k0m"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cqvd0"]
 font_size = 64
@@ -65,3 +66,8 @@ text = "Return"
 [node name="Interface" type="CanvasLayer" parent="." unique_id=1795248170]
 
 [node name="Crosshair" parent="Interface" unique_id=1675944540 instance=ExtResource("3_tjyqx")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1471873661]
+stream = ExtResource("4_n7k0m")
+autoplay = true
+bus = &"Music"
