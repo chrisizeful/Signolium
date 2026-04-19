@@ -25,13 +25,14 @@ PhantomCameraManager="*uid://duq6jhf6unyis"
 Dialogic="*uid://ds2q0uclmolvu"
 Hotkeys="*uid://8mcq4naf313u"
 AudioHelper="*uid://b0x4rvumckon7"
+Jukebox="*uid://6ium2uwfo88b"
 
 [dialogic]
 
 directories/dch_directory={
 "Captain": "res://assets/dialog/character/Captain.dch",
 "Crewman1": "res://assets/dialog/character/Crewman1.dch",
-"Marauder": "res://assets/dialog/character/Marauder1.dch",
+"Marauder1": "res://assets/dialog/character/Marauder1.dch",
 "Marauder2": "res://assets/dialog/character/Marauder2.dch",
 "Marauder3": "res://assets/dialog/character/Marauder3.dch"
 }

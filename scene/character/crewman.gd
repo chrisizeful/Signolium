@@ -1,6 +1,8 @@
 extends Character
 class_name DefaultCrewman
 
+static var _never_liked = false
+
 @export var enabled := false
 @export var violent := true
 @export var follow := false
@@ -12,10 +14,15 @@ var _violent_mode := false
 
 func _ready():
 	health.death.connect(_on_death)
+	health.value_changed.connect(_on_health_changed)
 	area.connect("body_entered", _on_body_entered)
 
 func _on_body_entered(body : Node2D):
-	if not _violent_mode and violent and body.name == "Player":
+	if body.name == "Player":
+		_toggle_violent()
+
+func _toggle_violent():
+	if not _violent_mode and violent:
 		if not _violent_mode:
 			_show_alert()
 		_violent_mode = true
@@ -27,13 +34,20 @@ func _show_alert():
 	alert.visible = false
 
 func _on_death():
+	if _never_liked:
+		return
 	var game := get_node("/root/Game") as Game
 	game.cutscene.start_dialog("res://assets/dialog/timeline/crewman_death.dtl")
 	game.set_enabled(game.player, false)
 	Dialogic.timeline_ended.connect(func():
-		game.set_enabled(game.player, true)
-		game.cutscene.active = false
+		if game and game.player:
+			game.set_enabled(game.player, true)
+			game.cutscene.active = false
 	)
+	_never_liked = true
+
+func _on_health_changed(_value : int):
+	_toggle_violent()
 
 func _physics_process(delta : float) -> void:
 	if not enabled:

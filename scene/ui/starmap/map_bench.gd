@@ -19,8 +19,19 @@ func _ready() -> void:
 
 func _on_body_entered(body : Node2D):
 	var game := get_node("/root/Game") as Game
-	if disabled or body != game.player:
+	if body != game.player:
 		return
+	if disabled:
+		if not game.ship_random:
+			return
+		var enemy_count = 0
+		for child in game.ship_random.get_children():
+			if child is DefaultCrewman:
+				enemy_count += 1
+		if enemy_count == 0:
+			disabled = false
+		else:
+			return
 	interact_panel.visible = true
 
 func _on_body_exited(body : Node2D):
