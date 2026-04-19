@@ -4,6 +4,7 @@ class_name Game
 const TILE_SIZE = 16
 
 @export var player : Character
+@export var crewman : DefaultCrewman
 @export var characters : Node2D
 
 @export var camera : Camera2D
@@ -91,12 +92,15 @@ func _take_off(player_ship : Ship = ship, other_ship : Ship = ship_enemy):
 	var target_position := Vector2(2000, player_ship.position.y)
 	var tween := create_tween()
 	tween.tween_property(player_ship, "position", target_position, 1.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-	# End cutscene
+	# Part 3
 	await tween.finished
-	_end_cutscene()
+	Dialogic.timeline_ended.connect(_end_cutscene)
+	cutscene.start_dialog("res://assets/dialog/timeline/intro3.dtl")
 
 func _end_cutscene():
+	Dialogic.timeline_ended.disconnect(_end_cutscene)
 	cutscene.active = false
+	crewman.enabled = true
 	for character in characters.get_children():
 		set_enabled(character, true)
 	set_enabled(player, true)
@@ -106,7 +110,25 @@ func set_enabled(node : Node, enabled : bool):
 	node.set_physics_process(enabled)
 	node.set_process_input(enabled)
 
+func _process(_delta : float) -> void:
+	var nodes = get_tree().get_nodes_in_group("character")
+	for node in nodes:
+		_squash_stretch(node)
+
+func _squash_stretch(sprite : Character) -> void:
+	# Squash and stretch animation
+	var squash = 0.1 * sin(Time.get_ticks_msec() / 200.0)
+	sprite.scale.y = 1.0 + squash
+	sprite.scale.x = 1.0 - squash * 0.5
+
+	# Side-to-side rotation if moving
+	if sprite.velocity.length() > 0.0:
+		sprite.rotation = 0.15 * sin(Time.get_ticks_msec() / 180.0)
+	else:
+		sprite.rotation = 0.0
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
+		AudioHelper.play_pause()
 		var pause = load("res://scene/ui/pause/pause_menu.tscn").instantiate()
 		interface.add_child(pause)

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://i6emugld6n1n"]
+
+[ext_resource type="Texture2D" uid="uid://hcyajmswckgd" path="res://assets/character/slash.png" id="1_i2n2q"]
+[ext_resource type="Script" uid="uid://c7mvcl7qwckq4" path="res://scene/gun/slash.gd" id="2_hjwp5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2n2q"]
+
+[node name="Slash" type="Sprite2D" unique_id=1251327151 node_paths=PackedStringArray("area")]
+texture = ExtResource("1_i2n2q")
+script = ExtResource("2_hjwp5")
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1889780001]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1371116352]
+shape = SubResource("RectangleShape2D_i2n2q")
