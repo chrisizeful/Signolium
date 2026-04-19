@@ -2,6 +2,7 @@ extends Node
 
 func play_sound(path : String):
 	var sound := AudioStreamPlayer.new()
+	sound.process_mode = Node.PROCESS_MODE_ALWAYS
 	sound.bus = "Sound"
 	sound.stream = load(path)
 	add_child(sound)
@@ -16,6 +17,15 @@ func play_map():
 
 func play_sector():
 	play_sound("res://assets/audio/Sector.wav")
+
+func play_pause():
+	play_sound("res://assets/audio/Pause.wav")
+
+func play_slash():
+	play_sound("res://assets/audio/Slash.wav")
+
+func play_hurt():
+	play_sound("res://assets/audio/Hurt.wav")
 
 func play_shoot():
 	var files := [

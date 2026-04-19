@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://bh47u4all5e8k"]
 
 [ext_resource type="Script" uid="uid://dbs5d5fotjc16" path="res://scene/ui/gameover/game_over.gd" id="1_qt8ve"]
+[ext_resource type="PackedScene" uid="uid://bogl20r0r4ahr" path="res://scene/game/Starfield.tscn" id="2_asmux"]
+[ext_resource type="PackedScene" uid="uid://cbfptxhdp321i" path="res://scene/crosshair/crosshair.tscn" id="3_lqj1g"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cqvd0"]
 font_size = 32
 
-[node name="GameOver" type="Control" unique_id=2041983675]
+[node name="GameOver" type="Control" unique_id=2041983675 node_paths=PackedStringArray("return_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +15,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qt8ve")
+return_button = NodePath("VBoxContainer/Return")
+
+[node name="Starfield" parent="." unique_id=542465191 instance=ExtResource("2_asmux")]
+layout_mode = 0
+anchors_preset = 0
+offset_left = -520.0
+offset_top = -730.0
+offset_right = 520.0
+offset_bottom = 730.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1875926590]
 layout_mode = 1
@@ -36,3 +47,7 @@ label_settings = SubResource("LabelSettings_cqvd0")
 [node name="Return" type="Button" parent="VBoxContainer" unique_id=1405387783]
 layout_mode = 2
 text = "Return"
+
+[node name="Interface" type="CanvasLayer" parent="." unique_id=1795248170]
+
+[node name="Crosshair" parent="Interface" unique_id=1675944540 instance=ExtResource("3_lqj1g")]

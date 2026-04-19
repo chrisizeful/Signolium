@@ -34,7 +34,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/Menu/Master" unique_id=1139767058]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-text = "Music"
+text = "Master"
 
 [node name="HSlider" type="HSlider" parent="MarginContainer/Menu/Master" unique_id=359734294]
 custom_minimum_size = Vector2(128, 0)

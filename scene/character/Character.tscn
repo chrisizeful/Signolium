@@ -4,11 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://cvdxlb8cvu07s" path="res://assets/character/Guy2.png" id="1_oolk3"]
 [ext_resource type="Script" uid="uid://dsq7hfxn4oacn" path="res://scene/character/health.gd" id="2_jvlcx"]
 [ext_resource type="PackedScene" uid="uid://dpms8ufhox4sp" path="res://scene/gun/Handgun.tscn" id="3_mmwew"]
+[ext_resource type="Texture2D" uid="uid://cg1jgumuw8h8y" path="res://assets/ui/alert.png" id="5_ar3w2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ig0a"]
-size = Vector2(13, 15)
+size = Vector2(13, 10)
 
-[node name="Player" type="CharacterBody2D" unique_id=428865472]
+[sub_resource type="CircleShape2D" id="CircleShape2D_jvlcx"]
+radius = 48.0
+
+[node name="Player" type="CharacterBody2D" unique_id=428865472 groups=["character"]]
 script = ExtResource("1_jo2ib")
 
 [node name="Health" type="Node" parent="." unique_id=294128917]
@@ -19,7 +23,7 @@ texture = ExtResource("1_oolk3")
 offset = Vector2(0, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1205202439]
-position = Vector2(-1.5, -6.5)
+position = Vector2(-1.5, -4)
 shape = SubResource("RectangleShape2D_7ig0a")
 
 [node name="Center" type="Node2D" parent="." unique_id=711719974]
@@ -30,3 +34,14 @@ position = Vector2(5, 2)
 
 [node name="Muzzle" type="Node2D" parent="Center/Handgun" unique_id=1790935018]
 position = Vector2(5, -1)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=282303043]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=278990559]
+position = Vector2(-1, -4)
+shape = SubResource("CircleShape2D_jvlcx")
+
+[node name="Alert" type="Sprite2D" parent="." unique_id=373596297]
+visible = false
+position = Vector2(-1, -23)
+texture = ExtResource("5_ar3w2")

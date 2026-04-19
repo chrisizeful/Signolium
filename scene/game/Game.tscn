@@ -10,8 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://cuinqkgpqthtu" path="res://scene/ship/EnemyShip.tscn" id="7_aqhsn"]
 [ext_resource type="PackedScene" uid="uid://bgbfcu2hguy3i" path="res://scene/character/Character.tscn" id="7_evklf"]
 [ext_resource type="PackedScene" uid="uid://bmwc2wlawaonr" path="res://scene/ui/starmap/Starmap.tscn" id="9_evklf"]
+[ext_resource type="Script" uid="uid://ba3yhgsg68d22" path="res://scene/character/crewman.gd" id="9_suiky"]
 [ext_resource type="Script" uid="uid://dm8sdjiv8jxjp" path="res://script/cutscene.gd" id="10_q1djn"]
 [ext_resource type="PackedScene" uid="uid://cbfptxhdp321i" path="res://scene/crosshair/crosshair.tscn" id="11_7ce1y"]
+[ext_resource type="Script" uid="uid://cu1djjr2wtsgn" path="res://scene/character/player.gd" id="11_hbq3w"]
+[ext_resource type="Texture2D" uid="uid://fjx7ofcsakpc" path="res://assets/ui/heart.png" id="13_qfg72"]
+[ext_resource type="Script" uid="uid://csv3vnn0eyrl3" path="res://scene/game/health_label.gd" id="14_r5bjy"]
 
 [sub_resource type="Resource" id="Resource_iabks"]
 script = ExtResource("3_oadgx")
@@ -20,7 +24,7 @@ script = ExtResource("3_oadgx")
 script = ExtResource("6_j0sn7")
 metadata/_custom_type_script = "uid://dimvdouy8g0sv"
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_j0sn7"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r5bjy"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.02
@@ -28,9 +32,10 @@ fractal_type = 0
 cellular_jitter = 0.8
 cellular_return_type = 0
 
-[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "characters", "camera", "pcam_ship", "pcam_player", "interface", "starmap", "cutscene", "ship", "ship_enemy")]
+[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "crewman", "characters", "camera", "pcam_ship", "pcam_player", "interface", "starmap", "cutscene", "ship", "ship_enemy")]
 script = ExtResource("1_bugwe")
 player = NodePath("Ship/Characters/Player")
+crewman = NodePath("EnemyShip/Crewman")
 characters = NodePath("Ship/Characters")
 camera = NodePath("Camera2D")
 pcam_ship = NodePath("ShipCamera")
@@ -93,8 +98,13 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="EnemyShip" parent="." unique_id=1667723798 instance=ExtResource("7_aqhsn")]
 position = Vector2(-261, 0)
 
-[node name="Guy" parent="EnemyShip" unique_id=428865472 instance=ExtResource("7_evklf")]
+[node name="Crewman" parent="EnemyShip" unique_id=428865472 instance=ExtResource("7_evklf")]
 position = Vector2(-50, 33)
+script = ExtResource("9_suiky")
+enabled = false
+violent = true
+follow = false
+shoot_rate = 0.5
 
 [node name="Ship" parent="." unique_id=2264427 instance=ExtResource("5_oadgx")]
 position = Vector2(418, -12)
@@ -103,6 +113,10 @@ position = Vector2(418, -12)
 
 [node name="Player" parent="Ship/Characters" unique_id=1089187584 instance=ExtResource("7_evklf")]
 position = Vector2(8, 7)
+script = ExtResource("11_hbq3w")
+
+[node name="Health" parent="Ship/Characters/Player" index="0" unique_id=294128917]
+value = 10
 
 [node name="Marauder1" parent="Ship/Characters" unique_id=442580551 instance=ExtResource("7_evklf")]
 position = Vector2(8, -19)
@@ -117,9 +131,29 @@ position = Vector2(-9, 31)
 script = ExtResource("10_q1djn")
 
 [node name="Interface" type="CanvasLayer" parent="." unique_id=868436222]
+layer = 20
+
+[node name="GUI" type="MarginContainer" parent="Interface" unique_id=915941665]
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="HealthContainer" type="HBoxContainer" parent="Interface/GUI" unique_id=1866133816]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Interface/GUI/HealthContainer" unique_id=1912006000]
+layout_mode = 2
+texture = ExtResource("13_qfg72")
+
+[node name="HealthLabel" type="Label" parent="Interface/GUI/HealthContainer" unique_id=1419695044 node_paths=PackedStringArray("player")]
+layout_mode = 2
+text = "10"
+script = ExtResource("14_r5bjy")
+player = NodePath("../../../../Ship/Characters/Player")
 
 [node name="Starmap" parent="Interface" unique_id=1468163657 instance=ExtResource("9_evklf")]
 visible = false
-noise = SubResource("FastNoiseLite_j0sn7")
+noise = SubResource("FastNoiseLite_r5bjy")
 
 [node name="Crosshair" parent="Interface" unique_id=1675944540 instance=ExtResource("11_7ce1y")]
+
+[editable path="Ship/Characters/Player"]
