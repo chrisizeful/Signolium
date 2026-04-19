@@ -44,7 +44,6 @@ func _show_alert():
 func _on_death():
 	var game := get_node("/root/Game") as Game
 	# If this is the original ship and every enemy is dead, we win
-	print(game.is_boss(), ", ", game.enemy_count())
 	if game.is_boss() and game.enemy_count() == 0:
 		get_tree().call_deferred("change_scene_to_file", "res://scene/ui/gameover/WinScreen.tscn")
 		return
