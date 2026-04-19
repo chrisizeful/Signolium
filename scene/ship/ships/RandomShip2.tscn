@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://doxt1sipmr4mu" path="res://assets/ship/ship_tileset.tres" id="2_wsps4"]
 [ext_resource type="PackedScene" uid="uid://s513kp084pbe" path="res://scene/ui/starmap/MapBench.tscn" id="3_wsps4"]
 [ext_resource type="PackedScene" uid="uid://bgbfcu2hguy3i" path="res://scene/character/Character.tscn" id="4_d3yeg"]
-[ext_resource type="Script" path="res://scene/character/crewman.gd" id="5_q78py"]
+[ext_resource type="Script" uid="uid://ba3yhgsg68d22" path="res://scene/character/crewman.gd" id="5_q78py"]
 
 [node name="Ship" type="Node2D" unique_id=2264427 node_paths=PackedStringArray("floor_layer", "wall_layer", "exit_layer", "closed_layer")]
 z_index = -1

@@ -17,6 +17,7 @@ var _value := 5
 			emit_signal("value_changed", _value)
 			if _value == 0:
 				emit_signal("death")
+				get_parent().queue_free()
 	get:
 		return _value
 
@@ -24,6 +25,3 @@ var _dead : bool
 var dead:
 	get:
 		return _dead
-
-func _ready():
-	death.connect(get_parent().queue_free)

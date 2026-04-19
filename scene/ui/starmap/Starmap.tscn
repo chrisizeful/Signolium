@@ -194,7 +194,7 @@ label_settings = SubResource("LabelSettings_a6okm")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "Click a sector to travel"
+text = "Click a neighbor sector to travel"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Legend/VBoxContainer" unique_id=594129233]
 layout_mode = 2

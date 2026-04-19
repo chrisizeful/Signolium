@@ -14,9 +14,13 @@ radius = 48.0
 
 [node name="Player" type="CharacterBody2D" unique_id=428865472 groups=["character"]]
 script = ExtResource("1_jo2ib")
+max_speed = 160.0
 
 [node name="Health" type="Node" parent="." unique_id=294128917]
 script = ExtResource("2_jvlcx")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1610106280]
+avoidance_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2027633550]
 texture = ExtResource("1_oolk3")

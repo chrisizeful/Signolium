@@ -35,3 +35,10 @@ func align(other: Ship) -> void:
 func set_open(open : bool):
 	closed_layer.visible = not open
 	closed_layer.collision_enabled = not open
+
+func take_off() -> Signal:
+	set_open(false)
+	var target_position := Vector2(2000, position.y)
+	var tween := create_tween()
+	tween.tween_property(self, "position", target_position, 1.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	return tween.finished

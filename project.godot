@@ -32,7 +32,7 @@ Jukebox="*uid://6ium2uwfo88b"
 directories/dch_directory={
 "Captain": "res://assets/dialog/character/Captain.dch",
 "Crewman1": "res://assets/dialog/character/Crewman1.dch",
-"Marauder": "res://assets/dialog/character/Marauder1.dch",
+"Marauder1": "res://assets/dialog/character/Marauder1.dch",
 "Marauder2": "res://assets/dialog/character/Marauder2.dch",
 "Marauder3": "res://assets/dialog/character/Marauder3.dch"
 }
