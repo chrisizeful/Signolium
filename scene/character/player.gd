@@ -1,7 +1,7 @@
 extends Character
 class_name Player
 
-const coins_required := 1
+const coins_required := 10
 
 signal coins_changed
 
