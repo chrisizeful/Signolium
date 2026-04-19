@@ -27,6 +27,12 @@ func play_slash():
 func play_hurt():
 	play_sound("res://assets/audio/Hurt.wav")
 
+func play_pickup():
+	play_sound("res://assets/audio/Pickup.wav")
+
+func play_coin():
+	play_sound("res://assets/audio/Pickup.wav")
+
 func play_shoot():
 	var files := [
 		"res://assets/audio/Shoot0.wav",

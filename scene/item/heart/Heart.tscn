@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://du7hnf58y4x6v"]
+
+[ext_resource type="Texture2D" uid="uid://fjx7ofcsakpc" path="res://assets/ui/heart.png" id="1_2bm3i"]
+[ext_resource type="Script" uid="uid://eojdaq7tsu5k" path="res://scene/item/heart/heart.gd" id="2_q7n6q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2bm3i"]
+radius = 8.0
+
+[node name="Heart" type="Sprite2D" unique_id=1069316862 node_paths=PackedStringArray("area")]
+texture = ExtResource("1_2bm3i")
+script = ExtResource("2_q7n6q")
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1753698510]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1893965387]
+shape = SubResource("CircleShape2D_2bm3i")

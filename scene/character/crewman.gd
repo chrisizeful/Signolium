@@ -13,12 +13,20 @@ var _wander_pause := false
 var _violent_mode := false
 
 func _ready():
+	var textures := [
+		"res://assets/character/RedCoat.png",
+		"res://assets/character/YellowCoat.png",
+		"res://assets/character/BlueCoat.png"
+	]
+	sprite.texture = load(textures[randi() % textures.size()])
+	shoot_rate = .66
 	health.death.connect(_on_death)
 	health.value_changed.connect(_on_health_changed)
 	area.connect("body_entered", _on_body_entered)
-
+ 
 func _on_body_entered(body : Node2D):
-	if body.name == "Player":
+	var game := get_node("/root/Game") as Game
+	if body == game.player:
 		_toggle_violent()
 
 func _toggle_violent():
@@ -34,9 +42,15 @@ func _show_alert():
 	alert.visible = false
 
 func _on_death():
+	# Chance to spawn heart
+	var game := get_node("/root/Game") as Game
+	if randf() < .33:
+		var heart := load("res://scene/item/heart/Heart.tscn").instantiate() as Heart
+		game.root.call_deferred("add_child", heart)
+		heart.set_deferred("global_position", global_position)
+	# Crewman death dialog
 	if _never_liked:
 		return
-	var game := get_node("/root/Game") as Game
 	game.cutscene.start_dialog("res://assets/dialog/timeline/crewman_death.dtl")
 	game.set_enabled(game.player, false)
 	Dialogic.timeline_ended.connect(func():
@@ -54,7 +68,7 @@ func _physics_process(delta : float) -> void:
 		return
 
 	if follow:
-		_follow(delta)
+		_follow()
 		_attack()
 	else:
 		_wander(delta)
@@ -82,26 +96,17 @@ func _melee(target : Node2D):
 	await get_tree().create_timer(.5).timeout
 	slash.queue_free()
 
-func _follow(delta : float):
+func _follow():
 	var game := get_node("/root/Game") as Game
 	if not game.player:
 		return
-
-	var follow_distance := 96.0
-	var stop_distance := 64.0
-	var to_player := game.player.global_position - global_position
-	var dist := to_player.length()
-
-	if dist > follow_distance:
-		var dir := to_player.normalized()
-		velocity = velocity.move_toward(dir * max_speed * 0.5, acceleration * max_speed * delta * 0.5)
-	elif dist < stop_distance:
-		velocity = velocity.move_toward(Vector2.ZERO, braking * max_speed * delta)
-	else:
-		velocity = velocity.move_toward(Vector2.ZERO, braking * max_speed * delta * 0.5)
-
-	if velocity.length() > max_speed * 0.5:
-		velocity = velocity.normalized() * max_speed * 0.5
+	navagent.target_position = game.player.global_position
+	if navagent.is_navigation_finished():
+		velocity = Vector2.ZERO
+		return
+	var next_pos = navagent.get_next_path_position()
+	var direction = (next_pos - global_position).normalized()
+	velocity = direction * (max_speed * .2)
 
 func _wander(delta : float):
 		_wander_timer -= delta

@@ -21,7 +21,12 @@ func _on_body_entered(body : Node2D):
 	var game := get_node("/root/Game") as Game
 	if body != game.player:
 		return
+	# Prevent using maps on other ships
+	var parent = get_parent()
+	if parent != game.ship_enemy:
+		return true
 	if disabled:
+		interact_panel.visible = false
 		if not game.ship_random:
 			return
 		var enemy_count = 0
