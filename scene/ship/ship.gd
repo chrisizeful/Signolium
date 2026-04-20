@@ -18,14 +18,12 @@ func get_width() -> int:
 			min_x = cell.x
 		if cell.x > max_x:
 			max_x = cell.x
-	return max_x - min_x
+	return max_x - min_x - 1
 
 func align(other: Ship) -> void:
 	var tile_size := floor_layer.tile_set.tile_size.x
-	var half_self := get_width() * tile_size / 2.0
-	var half_other := other.get_width() * tile_size / 2.0
 	var new_position = Vector2(
-		position.x + half_self + half_other,
+		position.x + get_width() * tile_size,
 		position.y
 	)
 	var tween := other.create_tween()

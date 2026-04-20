@@ -2,6 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bsnur5afa3ir3" path="res://scene/ui/mainmenu/settings.gd" id="1_mgcgr"]
 
+[sub_resource type="InputEventAction" id="InputEventAction_mgcgr"]
+action = &"pause"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_8f2hx"]
+events = [SubResource("InputEventAction_mgcgr")]
+
 [node name="Settings" type="Control" unique_id=2139606620 node_paths=PackedStringArray("back", "master", "sound", "music")]
 layout_mode = 3
 anchors_preset = 15
@@ -74,4 +81,5 @@ step = 0.01
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+shortcut = SubResource("Shortcut_8f2hx")
 text = "Back"

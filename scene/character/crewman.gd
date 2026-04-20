@@ -13,12 +13,22 @@ var _wander_pause := false
 var _violent_mode := false
 
 func _ready():
-	var textures := [
-		"res://assets/character/RedCoat.png",
-		"res://assets/character/YellowCoat.png",
-		"res://assets/character/BlueCoat.png"
-	]
-	sprite.texture = load(textures[randi() % textures.size()])
+	var game := get_node("/root/Game") as Game
+	# 25% chimken chance...
+	var chimken := randf() >= .75
+	# ... as long as its not one of main people
+	var parent = self.get_parent()
+	if self == game.player or parent == game.ship or parent == game.ship_enemy or parent == game.characters:
+		chimken = false
+	if not chimken:
+		var textures := [
+			"res://assets/character/RedCoat.png",
+			"res://assets/character/YellowCoat.png",
+			"res://assets/character/BlueCoat.png"
+		]
+		sprite.texture = load(textures[randi() % textures.size()])
+	else:
+		sprite.texture = load("res://assets/character/chimkin.png")
 	shoot_rate = .66
 	health.death.connect(_on_death)
 	health.value_changed.connect(_on_health_changed)
@@ -53,7 +63,7 @@ func _on_death():
 		game.root.call_deferred("add_child", heart)
 		heart.set_deferred("global_position", global_position)
 	# Crewman death dialog
-	if _never_liked:
+	if _never_liked or get_parent() != game.ship_enemy:
 		return
 	game.cutscene.start_dialog("res://assets/dialog/timeline/crewman_death.dtl")
 	game.set_enabled(game.player, false)
