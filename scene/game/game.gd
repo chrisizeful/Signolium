@@ -59,12 +59,12 @@ func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, chan
 	player_ship.set_open(true)
 	other_ship.set_open(true)
 	# Tween player to center of enemy ship
-	var tween := create_tween()
 	if move_player:
 		var ship_width := other_ship.get_width() * TILE_SIZE
 		var ship_center_x := other_ship.position.x + ship_width / 2.0
 		var target_x = ship_center_x - TILE_SIZE / 2.0
 		var target_position := Vector2(target_x, player.global_position.y)
+		var tween := create_tween()
 		await tween.tween_property(player, "global_position", target_position, 0.7).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).finished
 	# If this is the boss play the final cutscene
 	if is_boss():
@@ -140,18 +140,28 @@ func is_boss() -> bool:
 func enemy_count() -> int:
 	if not ship_random:
 		return 0
-	var count = _count_enemies(ship_random)
-	if ship_random == ship:
-		count += _count_enemies(characters)
+	var count = _count_enemies(self)
+	if not is_boss():
+		count -= _count_enemies(ship)
 	return count
 
-func _count_enemies(root : Node) -> int:
+func aggro_enemies(node : Node):
+	for child in node.get_children():
+		if child is DefaultCrewman and is_instance_valid(child) and not child.is_queued_for_deletion():
+			child.enabled = true
+			child.violent = true
+			child._violent_mode = true
+			child.follow = true
+		aggro_enemies(child)
+
+func _count_enemies(node : Node) -> int:
 	var count = 0
-	if not ship_random:
+	if not node:
 		return count
-	for child in ship_random.get_children():
+	for child in node.get_children():
 		if child is DefaultCrewman and is_instance_valid(child) and not child.is_queued_for_deletion():
 			count += 1
+		count += _count_enemies(child)
 	return count
 
 func _input(event: InputEvent) -> void:
