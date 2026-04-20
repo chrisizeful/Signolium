@@ -76,6 +76,7 @@ func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, chan
 func _on_end_ended():
 	Dialogic.timeline_ended.disconnect(_on_end_ended)
 	set_enabled(player, true)
+	aggro_enemies(self)
 
 func _align_ships_intro(player_ship : Ship = ship, other_ship : Ship = ship_enemy):
 	Dialogic.timeline_ended.disconnect(_align_ships_intro)

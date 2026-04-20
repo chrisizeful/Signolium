@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cgixk6bl6d6wm" path="res://scene/ship/ship.gd" id="1_xg117"]
 [ext_resource type="PackedScene" uid="uid://s513kp084pbe" path="res://scene/ui/starmap/MapBench.tscn" id="3_n85rb"]
 [ext_resource type="TileSet" uid="uid://doxt1sipmr4mu" path="res://assets/ship/ship_tileset.tres" id="3_pv2gx"]
+[ext_resource type="PackedScene" uid="uid://cg705gdstknsk" path="res://scene/item/chest/chest.tscn" id="4_n85rb"]
 
 [node name="Ship" type="Node2D" unique_id=2264427 node_paths=PackedStringArray("floor_layer", "wall_layer", "exit_layer", "closed_layer", "bench")]
 z_index = -1
@@ -23,7 +24,7 @@ tile_map_data = PackedByteArray("AAD+//3/AAABAAEAAAD///3/AAABAAEAAAAAAP3/AAABAAE
 tile_set = ExtResource("3_pv2gx")
 
 [node name="Exit" type="TileMapLayer" parent="." unique_id=304486028]
-tile_map_data = PackedByteArray("AAD8////AAAGAAIAAAD8/wAAAAAGAAIAAAADAP7/AAADAAAAAAAEAP7/AAAEAAAAAAACAP3/AAADAAAAAAADAP3/AAAEAAAAAAD9//3/AAADAAAAAAD+//3/AAAEAAAAAAD8//7/AAADAAAAAAD9//7/AAAEAAAAAAD+//7/AAADAAAAAAD///7/AAAEAAAAAAABAP7/AAADAAAAAAACAP7/AAAEAAAAAAACAAEAAAADAAAAAAADAAEAAAAEAAAAAAD9/wEAAAADAAAAAAD+/wEAAAAEAAAAAAADAAAAAAADAAAAAAAEAAAAAAAEAAAAAAA=")
+tile_map_data = PackedByteArray("AAD8////AAAGAAIAAAD8/wAAAAAGAAIAAAA=")
 tile_set = ExtResource("3_pv2gx")
 
 [node name="Closed" type="TileMapLayer" parent="." unique_id=2142680302]
@@ -32,3 +33,30 @@ tile_set = ExtResource("3_pv2gx")
 
 [node name="MapBench" parent="." unique_id=1139948950 instance=ExtResource("3_n85rb")]
 position = Vector2(6, -36)
+
+[node name="Chest" parent="." unique_id=947572259 instance=ExtResource("4_n85rb")]
+position = Vector2(-28, -37)
+
+[node name="Chest2" parent="." unique_id=901683594 instance=ExtResource("4_n85rb")]
+position = Vector2(-47, -22)
+
+[node name="Chest3" parent="." unique_id=496136976 instance=ExtResource("4_n85rb")]
+position = Vector2(-17, -21)
+
+[node name="Chest4" parent="." unique_id=1110910077 instance=ExtResource("4_n85rb")]
+position = Vector2(32, -21)
+
+[node name="Chest5" parent="." unique_id=1010510981 instance=ExtResource("4_n85rb")]
+position = Vector2(60, -21)
+
+[node name="Chest6" parent="." unique_id=877283431 instance=ExtResource("4_n85rb")]
+position = Vector2(41, -37)
+
+[node name="Chest7" parent="." unique_id=1025104986 instance=ExtResource("4_n85rb")]
+position = Vector2(51, 17)
+
+[node name="Chest8" parent="." unique_id=1890824751 instance=ExtResource("4_n85rb")]
+position = Vector2(34, 33)
+
+[node name="Chest9" parent="." unique_id=1466439040 instance=ExtResource("4_n85rb")]
+position = Vector2(-29, 35)
