@@ -5,11 +5,15 @@ extends Control
 
 func _ready():
 	get_tree().paused = true
+	var game := get_node("/root/Game") as Game
+	game.gui.visible = false
 	resume.pressed.connect(_on_resume_pressed)
 	main_menu.pressed.connect(_on_main_menu_pressed)
 
 func _exit_tree():
 	get_tree().paused = false
+	var game := get_node("/root/Game") as Game
+	game.gui.visible = true
 
 func _on_resume_pressed():
 	AudioHelper.play_click()

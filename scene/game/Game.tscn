@@ -21,6 +21,10 @@
 [sub_resource type="Resource" id="Resource_iabks"]
 script = ExtResource("3_oadgx")
 
+[sub_resource type="LabelSettings" id="LabelSettings_w2egd"]
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_w2egd"]
 resource_local_to_scene = true
 noise_type = 2
@@ -29,7 +33,7 @@ fractal_type = 0
 cellular_jitter = 0.8
 cellular_return_type = 0
 
-[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "crewman", "characters", "camera", "pcam_ship", "pcam_player", "main_viewport", "interface", "starmap", "cutscene", "root", "ship", "ship_enemy")]
+[node name="Game" type="Node2D" unique_id=87650487 node_paths=PackedStringArray("player", "crewman", "characters", "camera", "pcam_ship", "pcam_player", "gui", "main_viewport", "interface", "starmap", "cutscene", "root", "ship", "ship_enemy")]
 script = ExtResource("1_bugwe")
 player = NodePath("SubViewportContainer2/SubViewport/Root/Ship/Characters/Player")
 crewman = NodePath("SubViewportContainer2/SubViewport/Root/EnemyShip/Crewman")
@@ -37,6 +41,7 @@ characters = NodePath("SubViewportContainer2/SubViewport/Root/Ship/Characters")
 camera = NodePath("SubViewportContainer2/SubViewport/Camera2D")
 pcam_ship = NodePath("SubViewportContainer2/SubViewport/ShipCamera")
 pcam_player = NodePath("SubViewportContainer2/SubViewport/PlayerCamera")
+gui = NodePath("Interface/SubViewportContainer/SubViewport/GUI")
 main_viewport = NodePath("SubViewportContainer2/SubViewport")
 interface = NodePath("Interface")
 starmap = NodePath("Interface/Starmap")
@@ -195,6 +200,7 @@ texture = ExtResource("13_qfg72")
 [node name="HealthLabel" type="Label" parent="Interface/SubViewportContainer/SubViewport/GUI/VBoxContainer/HealthContainer" unique_id=1419695044 node_paths=PackedStringArray("player")]
 layout_mode = 2
 text = "10"
+label_settings = SubResource("LabelSettings_w2egd")
 script = ExtResource("14_r5bjy")
 player = NodePath("../../../../../../../SubViewportContainer2/SubViewport/Root/Ship/Characters/Player")
 
@@ -210,6 +216,7 @@ texture = ExtResource("14_w2egd")
 [node name="CoinLabel" type="Label" parent="Interface/SubViewportContainer/SubViewport/GUI/VBoxContainer/CoinContainer" unique_id=1249242388]
 layout_mode = 2
 text = "0/6"
+label_settings = SubResource("LabelSettings_w2egd")
 script = ExtResource("15_w2egd")
 
 [node name="Starmap" parent="Interface" unique_id=1468163657 instance=ExtResource("9_evklf")]

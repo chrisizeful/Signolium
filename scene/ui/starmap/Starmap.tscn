@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://e1r870vqmqj3" path="res://assets/shader/starmap.gdshader" id="2_23dkc"]
 [ext_resource type="Texture2D" uid="uid://bu0uj5s2xkemv" path="res://assets/ui/player-icon.png" id="3_ym6h3"]
 [ext_resource type="Texture2D" uid="uid://buufv4kc1kg7j" path="res://assets/ui/target-icon.png" id="4_u4fni"]
+[ext_resource type="Texture2D" uid="uid://dsnv8056m7r7j" path="res://assets/ui/white.png" id="5_ej7r8"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_a6okm"]
 resource_local_to_scene = true
@@ -17,13 +18,13 @@ cellular_return_type = 0
 shader = ExtResource("2_23dkc")
 shader_parameter/cell_border_width = 0.03
 shader_parameter/border_color = Color(0.60784316, 0.7411765, 1, 1)
-shader_parameter/highlight_color = Color(0.3, 0.5, 1, 1)
+shader_parameter/highlight_color = Color(0.3882353, 0.60784316, 1, 1)
 shader_parameter/rect_size = Vector2(1, 1)
 shader_parameter/circle_scale = 0.450000021375
 shader_parameter/hovered_value = -999.0
 shader_parameter/visited_values = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/visited_count = 0
-shader_parameter/visited_color = Color(1, 0.8, 0.2, 1)
+shader_parameter/visited_color = Color(0.9843137, 0.9490196, 0.21176471, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_a6okm"]
 font_size = 32
@@ -201,6 +202,7 @@ Collect enough coins to trake revenge"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Legend/VBoxContainer/HBoxContainer" unique_id=1693420233]
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("3_ym6h3")
 
@@ -214,6 +216,7 @@ text = "You"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Legend/VBoxContainer/HBoxContainer2" unique_id=534908759]
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("4_u4fni")
 
@@ -222,6 +225,20 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Signal"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Legend/VBoxContainer" unique_id=1494993533]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Legend/VBoxContainer/HBoxContainer3" unique_id=315001361]
+self_modulate = Color(0.9843137, 0.9490196, 0.21176471, 1)
+layout_mode = 2
+texture = ExtResource("5_ej7r8")
+
+[node name="Label" type="Label" parent="Legend/VBoxContainer/HBoxContainer3" unique_id=1980403943]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Visited"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=520242524]
 libraries/ = SubResource("AnimationLibrary_u4fni")

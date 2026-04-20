@@ -17,7 +17,7 @@ func _ready():
 	health.death.connect(_on_death)
 
 func _on_death():
-	get_tree().change_scene_to_file("res://scene/ui/gameover/GameOver.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scene/ui/gameover/GameOver.tscn")
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):

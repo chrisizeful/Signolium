@@ -117,6 +117,7 @@ func show_map() -> void:
 		return
 	if not animator.is_playing():
 		game.set_enabled(game.player, false)
+		game.gui.visible = false
 		AudioHelper.play_map()
 		animator.play("in")
 
@@ -126,6 +127,7 @@ func _input(event: InputEvent) -> void:
 		AudioHelper.play_map()
 		animator.play("out")
 		await animator.animation_finished
+		game.gui.visible = true
 		game.set_enabled(game.player, true)
 		return
 	if not visible or animator.is_playing():
@@ -150,8 +152,12 @@ func _input(event: InputEvent) -> void:
 			var px := clampi(int(uv.x * NOISE_SIZE), 0, NOISE_SIZE - 1)
 			var py := clampi(int(uv.y * NOISE_SIZE), 0, NOISE_SIZE - 1)
 			var val := _cell_image.get_pixel(px, py).r
-			# Only can move to neighbors
-			if not is_neighbor(_player_cell, val):
+			# Only can move to neighbors or visited
+			if not is_neighbor(_player_cell, val) and not _visited_cells.has(val):
+				AudioHelper.play_error()
+				return
+			if _player_cell == val:
+				AudioHelper.play_error()
 				return
 			# Check if we meet coin requirement to go to boss
 			if val == _target_cell and game.player.coins < Player.coins_required:
@@ -178,6 +184,7 @@ func _input(event: InputEvent) -> void:
 			AudioHelper.play_map()
 			animator.play("out")
 			await animator.animation_finished
+			game.gui.visible = true
 			game.set_enabled(game.player, true)
 			_moved = false
 			# Current ship takes off
@@ -224,27 +231,10 @@ func cell_distance(cell_a: float, cell_b: float) -> int:
 		frontier = next_frontier
 	return -1
 
-func _get_random_ship() -> String:
-	var dir = DirAccess.open("res://scene/ship/ships/")
-	if dir:
-		# Find all files
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		var files = []
-		while file_name != "":
-			if dir.current_is_dir():
-				continue
-			files.append(file_name)
-			file_name = dir.get_next()
-		# Choose random file
-		return files[randi_range(0, len(files) - 1)]
-	else:
-		print("An error occurred when trying to access the path.")
-	return ""
-
 func _spawn_ship(ship : Ship = null):
 	if not ship:
-		var path := "res://scene/ship/ships/" + _get_random_ship()
+		var num := randi_range(1, 5)
+		var path := "res://scene/ship/ships/RandomShip" + str(num) + ".tscn"
 		ship = load(path).instantiate() as Ship
 	var game := get_node("/root/Game") as Game
 	if game.ship_random:

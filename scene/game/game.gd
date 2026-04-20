@@ -11,6 +11,7 @@ const TILE_SIZE = 16
 @export var pcam_ship : PhantomCamera2D
 @export var pcam_player : PhantomCamera2D
 
+@export var gui : Control
 @export var main_viewport : SubViewport
 @export var interface : CanvasLayer
 @export var starmap : Starmap
@@ -43,7 +44,7 @@ func _on_text_show(_info : Dictionary):
 		AudioHelper.play_click()
 	_text_first = true
 
-func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, change_camera := true, move_player := true) -> Tween:
+func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, change_camera := true, move_player := true):
 	# Switch to ship camera
 	if change_camera:
 		pcam_player.priority = 0
@@ -55,25 +56,22 @@ func align_ships(player_ship : Ship = ship, other_ship : Ship = ship_enemy, chan
 	other_ship.align(player_ship)
 	# Wait for ships to connect
 	await get_tree().create_timer(player_ship.align_time).timeout
-	# Open doors as part of tween
-	var tween := create_tween()
-	tween.tween_callback(Callable(player_ship, "set_open").bind(true))
-	tween.tween_callback(Callable(other_ship, "set_open").bind(true))
+	player_ship.set_open(true)
+	other_ship.set_open(true)
 	# Tween player to center of enemy ship
+	var tween := create_tween()
 	if move_player:
 		var ship_width := other_ship.get_width() * TILE_SIZE
 		var ship_center_x := other_ship.position.x + ship_width / 2.0
 		var target_x = ship_center_x - TILE_SIZE / 2.0
 		var target_position := Vector2(target_x, player.global_position.y)
-		tween.tween_property(player, "global_position", target_position, 0.7).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+		await tween.tween_property(player, "global_position", target_position, 0.7).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).finished
 	# If this is the boss play the final cutscene
 	if is_boss():
-		await tween.finished
 		set_enabled(player, false)
 		cutscene.start_dialog("res://assets/dialog/timeline/end.dtl")
 		Dialogic.timeline_ended.connect(_on_end_ended)
-		return tween
-	return tween
+	return null
 
 func _on_end_ended():
 	Dialogic.timeline_ended.disconnect(_on_end_ended)
