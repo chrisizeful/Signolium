@@ -233,7 +233,7 @@ func cell_distance(cell_a: float, cell_b: float) -> int:
 
 func _spawn_ship(ship : Ship = null):
 	if not ship:
-		var num := randi_range(1, 5)
+		var num := randi_range(1, 10)
 		var path := "res://scene/ship/ships/RandomShip" + str(num) + ".tscn"
 		ship = load(path).instantiate() as Ship
 	var game := get_node("/root/Game") as Game
