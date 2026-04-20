@@ -195,6 +195,7 @@ func _input(event: InputEvent) -> void:
 				var ship = null
 				if val == _target_cell and game.player.coins >= Player.coins_required:
 					ship = game.ship
+					game.aggro_enemies(game)
 				_spawn_ship(ship)
 
 func _update_visited_shader():
